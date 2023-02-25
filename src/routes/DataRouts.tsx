@@ -34,7 +34,7 @@ export const privateRouts = [
 ]
 export const defaultRouts = [
     {
-        path: '/home',
+        path: '/',
         name: "Home",
         page: <Home />
     },

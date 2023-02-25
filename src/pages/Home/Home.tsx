@@ -1,9 +1,33 @@
-import React, { Component } from 'react'
 
-export default class Home extends Component {
-  render() {
-    return (
-      <div>Home</div>
-    )
-  }
+import { Button, Col, Container, Row } from 'react-bootstrap'
+import './home.modules.scss';
+
+
+const Home = () =>  {
+  return (
+    <Container fluid className="p-0">
+      <Row className="m-0">
+        <Col lg={6} className="p-5">
+          <h1 className="display-4 mb-4">Welcome to code snippet manager</h1>
+          <p className="lead mb-4">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae risus sed quam vestibulum fringilla.
+          </p>
+          <Button variant="primary" href="/login"  className="ml-4 buttonMargin">
+            {/* <FaPlay className="mr-2" /> */}
+       Login
+          </Button>
+
+          <Button href="/register" variant="outline-primary" className="mr-3" >
+            {/* <FaDownload className="mr-2" /> */}
+           Register
+          </Button>
+        </Col>
+        <Col lg={6} className="p-0">
+          <img src="https://via.placeholder.com/600x400" className="img-fluid" alt="placeholder" />
+        </Col>
+      </Row>
+    </Container>
+  );
+  
 }
+export default Home

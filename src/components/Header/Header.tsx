@@ -5,7 +5,7 @@ import Navbar from 'react-bootstrap/Navbar';
 function Header() {
   const auth = false
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="dark"  variant="dark" expand="lg">
       <Container>
           {/* <Navbar.Brand href="/home">
             <img
@@ -17,11 +17,11 @@ function Header() {
             />
           </Navbar.Brand> */}
         
-        <Navbar.Brand  href="/home">CSM</Navbar.Brand>
+        <Navbar.Brand  href="/">CSM</Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
           <Nav className="me-auto">
-            <Nav.Link href="/home">Home</Nav.Link>
+            <Nav.Link  href="/">Home</Nav.Link>
             <Nav.Link href="/about">About</Nav.Link>
           {auth &&   <Nav.Link href="/dashboard">Dashboard</Nav.Link> }
            {!auth &&  <Nav.Link href="/login">Login</Nav.Link>}
