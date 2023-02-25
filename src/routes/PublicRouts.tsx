@@ -5,7 +5,7 @@ interface Props {
 }
 
 const PublicRoute: React.FC<Props> = ({ children }) => {
-    const auth = true
+    const auth = false
 
     if (auth) {
         <Navigate to='/' replace />

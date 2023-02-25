@@ -5,7 +5,7 @@ interface Props {
 }
 
 const PrivateRouts: React.FC<Props> = ({ children }) => {
-    const auth = true
+    const auth = false
 
     if (auth) {
         return children

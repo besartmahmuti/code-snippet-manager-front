@@ -17,31 +17,36 @@ export const publicRoutes = [
         name: "Register",
         page: <Register />
     },
-    
+
 
 ]
-export const PrivateRouts = [
+export const privateRouts = [
     {
         path: '/dashboard',
         name: 'Dashboard',
-        page: <Dashboard/> 
+        page: <Dashboard />
     },
     {
         path: '/profile',
         name: 'Profile',
-        page: <Profile/>
+        page: <Profile />
     }
 ]
-export const DefaultRouts = [
+export const defaultRouts = [
     {
         path: '/home',
         name: "Home",
         page: <Home />
-    }, 
+    },
     {
         path: '/about',
         name: "About",
         page: <About />
     }
 ]
-
+const data = {
+    privateRouts,
+    publicRoutes,
+    defaultRouts
+}
+export default data;
