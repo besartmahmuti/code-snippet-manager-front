@@ -3,8 +3,10 @@ export type LoginFormValues = {
     password: string;
   };
 export type FormProps = {
-    onSubmit: (formData: LoginFormValues) => void;
-    usernameLabel: string;
+    usernameLabel?: string;
     passwordLabel: string;
     title: string;
+    fullNameLabel?: string;
+    emailLabel: string 
+    isRegistering: boolean
   }

@@ -2,24 +2,55 @@ import { FC, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { FormProps } from "../../lib/types";
 
-const CostumeForm: FC<FormProps> = ({ onSubmit, usernameLabel, passwordLabel , title }) => {
+const CostumeForm: FC<FormProps> = ({ isRegistering, usernameLabel, passwordLabel, title, fullNameLabel, emailLabel }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [fullName, setFullName] = useState("");
+    const [userName, setUserName] = useState("");
 
     const handleSubmit = (event: any) => {
         event.preventDefault();
-        console.log("Email:", email, "Password:", password);
+        if(isRegistering){
+            console.log("from form Email:", email, "Password:", password, "fullName:", fullName, "userName", userName);
+        }else{
+            console.log("from form Email:", email, "Password:", password)
+        }
+      
     };
     return (
         <div className="container mt-5 p-5 " style={{ width: '30%', backgroundColor: '#f8f9fa', border: '4px', borderRadius: '5px' }} >
             <h1>{title}</h1>
             <Form onSubmit={handleSubmit}>
+                {title === 'Register' &&
+                    <>
+                        <Form.Group controlId="formBasicEmail">
+                            <Form.Label>{fullNameLabel}</Form.Label>
+                            <Form.Control
+                                type="text"
+                                placeholder={"Type your full name"}
+                                value={fullName}
+                                onChange={(event) => setFullName(event.target.value)}
+                            />
+                        </Form.Group>
+                        <Form.Group controlId="formBasicEmail">
+                            <Form.Label>{usernameLabel}</Form.Label>
+                            <Form.Control
+                                type="text"
+
+                                placeholder={usernameLabel}
+                                value={userName}
+                                onChange={(event) => setUserName(event.target.value)}
+                            />
+                        </Form.Group>
+                    </>
+                }
+
                 <Form.Group controlId="formBasicEmail">
-                    <Form.Label>{usernameLabel}</Form.Label>
+                    <Form.Label>{emailLabel}</Form.Label>
                     <Form.Control
                         type="email"
 
-                        placeholder={usernameLabel}
+                        placeholder={emailLabel}
                         value={email}
                         onChange={(event) => setEmail(event.target.value)}
                     />
@@ -36,13 +67,13 @@ const CostumeForm: FC<FormProps> = ({ onSubmit, usernameLabel, passwordLabel , t
                 </Form.Group>
 
                 <Button variant="primary" className="m-4" type="submit"   >
-                  {title}
+                    {title}
                 </Button>
 
             </Form>
             <Form.Text className="text-muted mt-4">
-                {title === "Login" ? 
-                <a href='/register'> Create new account</a> : <a href="/login">Login</a> }
+                {!isRegistering ?
+                    <a href='/register'> Create new account</a> : <a href="/login">Login</a>}
             </Form.Text>
         </div>
     )
