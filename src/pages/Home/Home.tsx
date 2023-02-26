@@ -1,12 +1,16 @@
 
 import { Button, Col, Container, Row } from 'react-bootstrap'
 import './home.modules.scss';
+import { LOGO } from '../../lib/constants';
+import withHeaderAndFooter from '../../hoc/withHeaderAndFooter';
+
 
 
 const Home = () =>  {
+
   return (
-    <Container fluid className="p-0">
-      <Row className="m-0">
+    <Container fluid className="p-0 container mt-5">
+      <Row className="m-0 " >
         <Col lg={6} className="p-5">
           <h1 className="display-4 mb-4">Welcome to code snippet manager</h1>
           <p className="lead mb-4">
@@ -23,11 +27,11 @@ const Home = () =>  {
           </Button>
         </Col>
         <Col lg={6} className="p-0">
-          <img src="https://via.placeholder.com/600x400" className="img-fluid" alt="placeholder" />
+          <img src={LOGO} className="img-fluid" alt="placeholder" />
         </Col>
       </Row>
     </Container>
   );
   
 }
-export default Home
+export default withHeaderAndFooter(Home)

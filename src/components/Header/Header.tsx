@@ -1,22 +1,14 @@
 import { Nav } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
+// import './header.modules.scss'
 
-function Header() {
+
+const Header = ()=> {
   const auth = false
   return (
-    <Navbar bg="dark"  variant="dark" expand="lg">
-      <Container>
-          {/* <Navbar.Brand href="/home">
-            <img
-              src='./assets/logo/logo.PNG'
-              width="30"
-              height="30"
-              className="d-inline-block align-top"
-              alt="logo"
-            />
-          </Navbar.Brand> */}
-        
+    <Navbar bg="light"  variant="light" expand="lg">
+      <Container>        
         <Navbar.Brand  href="/">CSM</Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
