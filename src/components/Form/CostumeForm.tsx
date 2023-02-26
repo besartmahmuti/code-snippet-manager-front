@@ -1,10 +1,15 @@
 import { FC, useState } from "react";
+import { useDispatch } from 'react-redux';
 import { Button, Form } from "react-bootstrap";
 import { FormProps } from "../../lib/types";
 import { LOGO } from "../../lib/constants";
 import './costumeForm.module.scss'
+import {  login } from "../../lib/store/slices/auth";
+// import { Navigate } from "react-router-dom";
 
 const CostumeForm: FC<FormProps> = ({ isRegistering, usernameLabel, passwordLabel, title, fullNameLabel, emailLabel }) => {
+    const dispatch = useDispatch();
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [fullName, setFullName] = useState("");
@@ -16,6 +21,8 @@ const CostumeForm: FC<FormProps> = ({ isRegistering, usernameLabel, passwordLabe
             console.log("from form Email:", email, "Password:", password, "fullName:", fullName, "userName", userName);
         }else{
             console.log("from form Email:", email, "Password:", password)
+            dispatch(login({ isLoggedIn: true, username: email,  }));
+            // <Navigate to='/dashboard' />
         }
       
     };

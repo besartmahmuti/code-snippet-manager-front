@@ -10,3 +10,8 @@ export type FormProps = {
     emailLabel: string 
     isRegistering: boolean
   }
+  export interface authType {
+    isLoggedIn: boolean,
+    username: string;
+  }
+  

@@ -1,16 +1,19 @@
+
 import { Navigate } from "react-router-dom"
+import { store } from "../lib/store/store";
+
 
 interface Props {
     children: React.ReactElement
 }
 
 const PrivateRouts: React.FC<Props> = ({ children }) => {
-    const auth = false
+    const currentUser = store.getState().auth.value
 
-    if (auth) {
+    if (currentUser.isLoggedIn) {
         return children
     }
-    return <Navigate to="/login" replace />
+    return <Navigate to="/login"  />
 
 }
 
