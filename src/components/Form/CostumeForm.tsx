@@ -1,6 +1,8 @@
 import { FC, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { FormProps } from "../../lib/types";
+import { LOGO } from "../../lib/constants";
+import './costumeForm.module.scss'
 
 const CostumeForm: FC<FormProps> = ({ isRegistering, usernameLabel, passwordLabel, title, fullNameLabel, emailLabel }) => {
     const [email, setEmail] = useState("");
@@ -20,6 +22,7 @@ const CostumeForm: FC<FormProps> = ({ isRegistering, usernameLabel, passwordLabe
     return (
         <div className="container mt-5 p-5 " style={{ width: '30%', backgroundColor: '#f8f9fa', border: '4px', borderRadius: '5px' }} >
             <h1>{title}</h1>
+            <img style={{width:' 150px', height:'100px', marginBottom: '10px'}} src={LOGO} className="img-fluid myImg"  alt="placeholder" />
             <Form onSubmit={handleSubmit}>
                 {isRegistering &&
                     <>
