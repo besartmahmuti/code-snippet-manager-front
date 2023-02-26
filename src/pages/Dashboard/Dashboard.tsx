@@ -1,10 +1,8 @@
-import React, { Component } from 'react'
+import withHeaderAndFooter from "../../hoc/withHeaderAndFooter"
 
-
-export default class Dashboard extends Component {
-  render() {
-    return (
-      <div>Dashboard</div>
-    )
-  }
+const Dashboard = () => {
+  return (
+    <div>Dashboard</div>
+  )
 }
+export default withHeaderAndFooter(Dashboard)

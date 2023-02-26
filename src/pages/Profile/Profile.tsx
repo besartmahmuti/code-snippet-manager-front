@@ -1,9 +1,10 @@
-import { Component } from 'react'
+import withHeaderAndFooter from "../../hoc/withHeaderAndFooter"
 
-export default class Profile extends Component {
-  render() {
+const Profile  = () => {
+  
     return (
       <div>Profile</div>
     )
-  }
+  
 }
+export default withHeaderAndFooter(Profile)

@@ -1,9 +1,9 @@
-import { Component } from 'react'
 
-export default class About extends Component {
-  render() {
+import withHeaderAndFooter from '../../hoc/withHeaderAndFooter'
+
+const About = () => {
     return (
       <div>About</div>
     )
-  }
 }
+export default withHeaderAndFooter(About)

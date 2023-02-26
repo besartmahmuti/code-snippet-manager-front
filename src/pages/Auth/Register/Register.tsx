@@ -1,9 +1,9 @@
-import { Component } from 'react'
+import withHeaderAndFooter from "../../../hoc/withHeaderAndFooter"
 
-export default class Register extends Component {
-  render() {
-    return (
-      <div>Register</div>
+
+const Register = () =>{
+  return (
+    <div>Register</div>
     )
-  }
 }
+export default withHeaderAndFooter(Register)
