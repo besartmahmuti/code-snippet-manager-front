@@ -42,7 +42,7 @@ const CostumeForm: FC<FormProps> = ({ onSubmit, usernameLabel, passwordLabel , t
             </Form>
             <Form.Text className="text-muted mt-4">
                 {title === "Login" ? 
-                <a href='/register'> Create new account</a> : <a href="/login">{title}</a> }
+                <a href='/register'> Create new account</a> : <a href="/login">Login</a> }
             </Form.Text>
         </div>
     )
