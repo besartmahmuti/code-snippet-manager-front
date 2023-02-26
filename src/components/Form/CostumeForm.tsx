@@ -21,7 +21,7 @@ const CostumeForm: FC<FormProps> = ({ isRegistering, usernameLabel, passwordLabe
         <div className="container mt-5 p-5 " style={{ width: '30%', backgroundColor: '#f8f9fa', border: '4px', borderRadius: '5px' }} >
             <h1>{title}</h1>
             <Form onSubmit={handleSubmit}>
-                {title === 'Register' &&
+                {isRegistering &&
                     <>
                         <Form.Group controlId="formBasicEmail">
                             <Form.Label>{fullNameLabel}</Form.Label>
