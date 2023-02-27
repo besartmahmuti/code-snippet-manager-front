@@ -26,7 +26,7 @@ const Header = () => {
           <Nav className="me-auto">
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/about">About</Nav.Link>
-            {currentUser?.isLoggedIn && <Nav.Link href="/dashboard">Dashboard</Nav.Link>}
+            {currentUser?.isLoggedIn && <Nav.Link href="/snippet">Snippet</Nav.Link>}
             {!currentUser?.isLoggedIn && <Nav.Link href="/login">Login</Nav.Link>}
             {!currentUser?.isLoggedIn && <Nav.Link href="/register">Register</Nav.Link>}
           </Nav>

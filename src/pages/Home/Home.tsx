@@ -21,7 +21,7 @@ const Home = () => {
           <p className="lead mb-4">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae risus sed quam vestibulum fringilla.
           </p>
-          {currentUser.isLoggedIn ? <Button variant="primary" href="/dashboard" className='buttonMargin'>
+          {currentUser.isLoggedIn ? <Button variant="primary" href="/snippet" className='buttonMargin'>
             Get started
           </Button> :
             <>

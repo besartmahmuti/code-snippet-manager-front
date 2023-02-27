@@ -25,8 +25,8 @@ const CostumeForm: FC<FormProps> = ({ isRegistering, usernameLabel, passwordLabe
         }else{
             console.log("from form Email:", email, "Password:", password)
             dispatch(login({ isLoggedIn: true, username: email,  }));
-            // <Navigate to='/dashboard' />
-            navigate("/dashboard");
+        
+            navigate("/snippet");
         }
       
     };

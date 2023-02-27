@@ -1,7 +1,7 @@
 import About from "../pages/About";
 import Login from "../pages/Auth/Login/Login";
 import Register from "../pages/Auth/Register";
-import Dashboard from "../pages/Dashboard";
+import Snippet from "../pages/Snippet";
 import Home from "../pages/Home";
 import Profile from "../pages/Profile";
 
@@ -22,9 +22,9 @@ export const publicRoutes = [
 ]
 export const privateRouts = [
     {
-        path: '/dashboard',
-        name: 'Dashboard',
-        page: <Dashboard />
+        path: '/snippet',
+        name: 'Snippet',
+        page: <Snippet />
     },
     {
         path: '/profile',
