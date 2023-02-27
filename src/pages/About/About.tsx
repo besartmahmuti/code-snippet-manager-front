@@ -5,7 +5,7 @@ import { LOGO } from '../../lib/constants';
 
 const About = () => {
   return (
-    <Container>
+    <Container  className='p-2'>
       <Row className="my-5">
         <Col md={6}>
           <Image src={LOGO} fluid />

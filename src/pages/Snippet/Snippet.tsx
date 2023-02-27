@@ -20,7 +20,7 @@ const Snippet = () => {
     currentPage * itemsPerPage
   );
   return (
-    <Container fluid className={"p-0 container mt-5"}>
+    <Container fluid className={"p-2 container mt-5"} style={{ backgroundColor :'#f8f9fa'}}>
       <div className="d-flex justify-content-between align-items-center">
             <InputGroup className="m-3">
               <InputGroup.Text><AiOutlineSearch /></InputGroup.Text>

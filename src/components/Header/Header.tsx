@@ -4,7 +4,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import { RootState } from '../../lib/store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../lib/store/slices/auth';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 
 
@@ -24,11 +24,13 @@ const Header = () => {
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
           <Nav className="me-auto">
-            <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/about">About</Nav.Link>
-            {currentUser?.isLoggedIn && <Nav.Link href="/snippet">Snippet</Nav.Link>}
-            {!currentUser?.isLoggedIn && <Nav.Link href="/login">Login</Nav.Link>}
-            {!currentUser?.isLoggedIn && <Nav.Link href="/register">Register</Nav.Link>}
+          <NavLink  to="/" className="nav-link" >
+          Home
+        </NavLink>
+            <NavLink to="/about" className="nav-link">About</NavLink>
+            {currentUser?.isLoggedIn && <NavLink className="nav-link" to="/snippet">Snippet</NavLink>}
+            {!currentUser?.isLoggedIn && <NavLink className="nav-link" to="/login">Login</NavLink>}
+            {!currentUser?.isLoggedIn && <NavLink className="nav-link" to="/register">Register</NavLink>}
           </Nav>
           {currentUser?.isLoggedIn &&
 
