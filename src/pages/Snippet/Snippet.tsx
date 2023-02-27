@@ -1,18 +1,28 @@
-import { Button, Container, Row, Table, InputGroup, Form, Dropdown, DropdownButton } from "react-bootstrap"
+import { Button, Container, Table, InputGroup, Form, Dropdown, DropdownButton, Pagination } from "react-bootstrap"
 import withHeaderAndFooter from "../../hoc/withHeaderAndFooter"
 import { AiOutlineDelete, AiOutlineEdit, AiOutlineSearch } from "react-icons/ai";
+import { DATA } from "../../lib/constants";
+import { useState } from "react";
 
 
 const Snippet = () => {
+  const itemsPerPage = 5;
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = Math.ceil(DATA.length / itemsPerPage);
+  const handleEdit = (id: number) =>{
+
+  }
+  const handleDelete = (id: number) =>{
+
+  }
+  const pageData = DATA.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
   return (
     <Container fluid className={"p-0 container mt-5"}>
-     
-      <Row className="m-0">
-        <Table bordered responsive>
-          <thead>
-          <tr>
-            <th colSpan={2}>
-            <InputGroup className="mb-3">
+      <div className="d-flex justify-content-between align-items-center">
+            <InputGroup className="m-3">
               <InputGroup.Text><AiOutlineSearch /></InputGroup.Text>
               <Form.Control aria-label="Amount (to the nearest dollar)" />
               <DropdownButton
@@ -28,16 +38,16 @@ const Snippet = () => {
                 <Dropdown.Item href="#">Separated link</Dropdown.Item>
               </DropdownButton>
             </InputGroup>
-            
-            </th>
-            <th>
-            <Button variant="outline-success"  className="ml-4 buttonMargin">
-              Add new 
-            </Button>
-            </th>
-            </tr>
         
-        </thead>
+           
+            <Button variant="outline-success"  className="m-3">
+              Add 
+            </Button>
+            </div>
+     
+        
+        <Table bordered responsive>
+         
         <thead>
           <tr>
             <th>Name</th>
@@ -46,28 +56,58 @@ const Snippet = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Mark</td>
-            <td>
-            <Button className="m-1 mb-0 mt-0" variant="outline-primary"> <AiOutlineEdit /> </Button>
-              <Button  variant="outline-danger"> <AiOutlineDelete /> </Button>
+        {pageData.map((item, index) => (
+            <tr key={item.id}>
               
-            </td>
-
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Jacob</td>
-            <td>  <Button className="m-1 mb-0 mt-0" variant="outline-primary"> <AiOutlineEdit /> </Button>
-              <Button  variant="outline-danger"> <AiOutlineDelete /> </Button></td>
-
-          </tr>
-
-        </tbody>
+              <td>{item.column1}</td>
+              <td>{item.column2}</td>
+             
+              <td>
+                <Button variant="warning" onClick={() => handleEdit(item.id)}>
+                  <AiOutlineEdit />
+                </Button>{" "}
+                <Button variant="danger" onClick={() => handleDelete(item.id)}>
+                <AiOutlineDelete/ >
+                </Button>
+              </td>
+            </tr>
+          ))}
+      </tbody>
+        
       </Table>
-    </Row>
-
+   
+    <div className="d-flex justify-content-between align-items-center">
+      <div>
+        Showing {pageData.length} of {DATA.length} entries
+      </div>
+      <Pagination>
+        <Pagination.First
+          onClick={() => setCurrentPage(1)}
+          disabled={currentPage === 1}
+        />
+        <Pagination.Prev
+          onClick={() => setCurrentPage(currentPage - 1)}
+          disabled={currentPage === 1}
+        />
+        {Array.from({ length: totalPages }, (_, index) => (
+          <Pagination.Item
+            key={index}
+            active={index + 1 === currentPage}
+            onClick={() => setCurrentPage(index + 1)}
+          >
+            {index + 1}
+          </Pagination.Item>
+        ))}
+        <Pagination.Next
+          onClick={() => setCurrentPage(currentPage + 1)}
+          disabled={currentPage === totalPages}
+        />
+        <Pagination.Last
+          onClick={() => setCurrentPage(totalPages)}
+          disabled={currentPage === totalPages}
+        />
+      </Pagination>
+    </div>
     </Container >
   )
 }
