@@ -1,6 +1,7 @@
 
 import { Navigate } from "react-router-dom"
-import { store } from "../lib/store/store";
+import { RootState } from "../lib/store/store";
+import { useSelector } from "react-redux";
 
 
 interface Props {
@@ -8,7 +9,7 @@ interface Props {
 }
 
 const PrivateRouts: React.FC<Props> = ({ children }) => {
-    const currentUser = store.getState().auth.value
+    const currentUser = useSelector((state: RootState) => state.auth.value)
 
     if (currentUser.isLoggedIn) {
         return children

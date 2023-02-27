@@ -5,10 +5,12 @@ import { FormProps } from "../../lib/types";
 import { LOGO } from "../../lib/constants";
 import './costumeForm.module.scss'
 import {  login } from "../../lib/store/slices/auth";
-// import { Navigate } from "react-router-dom";
+import styles from  './costumeForm.module.scss'
+import { useNavigate } from "react-router-dom";
 
 const CostumeForm: FC<FormProps> = ({ isRegistering, usernameLabel, passwordLabel, title, fullNameLabel, emailLabel }) => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -16,6 +18,7 @@ const CostumeForm: FC<FormProps> = ({ isRegistering, usernameLabel, passwordLabe
     const [userName, setUserName] = useState("");
 
     const handleSubmit = (event: any) => {
+   
         event.preventDefault();
         if(isRegistering){
             console.log("from form Email:", email, "Password:", password, "fullName:", fullName, "userName", userName);
@@ -23,13 +26,14 @@ const CostumeForm: FC<FormProps> = ({ isRegistering, usernameLabel, passwordLabe
             console.log("from form Email:", email, "Password:", password)
             dispatch(login({ isLoggedIn: true, username: email,  }));
             // <Navigate to='/dashboard' />
+            navigate("/dashboard");
         }
       
     };
     return (
         <div className="container mt-5 p-5 " style={{ width: '30%', backgroundColor: '#f8f9fa', border: '4px', borderRadius: '5px' }} >
             <h1>{title}</h1>
-            <img style={{width:' 150px', height:'100px', marginBottom: '10px'}} src={LOGO} className="img-fluid myImg"  alt="placeholder" />
+            <img  src={LOGO} className={"img-fluid " + styles.myImg}  alt="placeholder" />
             <Form onSubmit={handleSubmit}>
                 {isRegistering &&
                     <>
