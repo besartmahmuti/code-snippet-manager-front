@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 interface Props {
     children: React.ReactElement
 }
-
 const PublicRoute: React.FC<Props> = ({ children }) => {
     const currentUser = useSelector((state: RootState) => state.auth.value)
   

@@ -31,7 +31,7 @@ const CostumeForm: FC<FormProps> = ({ isRegistering, usernameLabel, passwordLabe
       
     };
     return (
-        <div className="container mt-5 p-5 " style={{ width: '30%', backgroundColor: '#f8f9fa', border: '4px', borderRadius: '5px' }} >
+        <div className={"container mt-5 p-5 " + styles.myFormStyle}  >
             <h1>{title}</h1>
             <img  src={LOGO} className={"img-fluid " + styles.myImg}  alt="placeholder" />
             <Form onSubmit={handleSubmit}>
