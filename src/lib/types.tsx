@@ -20,4 +20,9 @@ export type FormProps = {
     column2: string;
     language: string;
   }
+  export type ModalTypes={
+    state: boolean,
+    title: string,
+    content: React.ReactElement
+  }
   

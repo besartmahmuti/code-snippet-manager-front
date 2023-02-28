@@ -1,11 +1,11 @@
-import CostumeForm from "../../../components/Form"
+import AuthForm from "../../../components/AuthForm"
 import withHeaderAndFooter from "../../../hoc/withHeaderAndFooter"
 
 
 
 const Register = () => {
   return (
-    <CostumeForm
+    <AuthForm
       isRegistering={true}
       emailLabel="Email"
       fullNameLabel="Full Name"

@@ -1,9 +1,9 @@
 import { Button, Container, Table, InputGroup, Form, Dropdown, DropdownButton } from "react-bootstrap"
-import withHeaderAndFooter from "../../hoc/withHeaderAndFooter"
+import withHeaderAndFooter from "../../../hoc/withHeaderAndFooter"
 import { AiOutlineDelete, AiOutlineEdit, AiOutlineSearch } from "react-icons/ai";
-import { DATA } from "../../lib/constants";
+import { DATA } from "../../../lib/constants";
 import { useState } from "react";
-import PaginationComponent from "../../components/Pagination";
+import PaginationComponent from "../../../components/Pagination";
 
 
 const Snippet = () => {
@@ -40,7 +40,7 @@ const Snippet = () => {
             </InputGroup>
         
            
-            <Button variant="outline-success"  className="m-3">
+            <Button variant="outline-success" href='/addSnippet'  className="m-3">
               Add 
             </Button>
             </div>

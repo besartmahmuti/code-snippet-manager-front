@@ -1,9 +1,10 @@
 import About from "../pages/About";
 import Login from "../pages/Auth/Login/Login";
 import Register from "../pages/Auth/Register";
-import Snippet from "../pages/Snippet";
+import Snippet from "../pages/Snippet/SnippetList";
 import Home from "../pages/Home";
 import Profile from "../pages/Profile";
+import AddSnippet from "../pages/Snippet/AddSnippet";
 
 
 export const publicRoutes = [
@@ -25,6 +26,11 @@ export const privateRouts = [
         path: '/snippet',
         name: 'Snippet',
         page: <Snippet />
+    },
+    {
+        path: '/addSnippet',
+        name: 'Add Snippet',
+        page: <AddSnippet />
     },
     {
         path: '/profile',

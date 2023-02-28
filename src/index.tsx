@@ -7,6 +7,8 @@ import { Provider } from 'react-redux';
 import { store } from './lib/store/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
+import ConfirmationModal from './components/ConfirmationModal';
+import Modal from './components/ConfirmationModal/Modal';
 
 const persistor = persistStore(store)
 
@@ -17,6 +19,7 @@ root.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <React.StrictMode>
+        <Modal />
         <App />
       </React.StrictMode>
     </PersistGate>

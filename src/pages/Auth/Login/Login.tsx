@@ -1,5 +1,5 @@
 
-import CostumeForm from "../../../components/Form";
+import AuthForm from "../../../components/AuthForm";
 import withHeaderAndFooter from "../../../hoc/withHeaderAndFooter"
 
 
@@ -7,7 +7,7 @@ import withHeaderAndFooter from "../../../hoc/withHeaderAndFooter"
 
 const Login = () => {
   return (
-    <CostumeForm
+    <AuthForm
       isRegistering={false}
       emailLabel={"Email"}
       passwordLabel={"Password"}
