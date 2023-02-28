@@ -14,4 +14,10 @@ export type FormProps = {
     isLoggedIn: boolean,
     username: string;
   }
+ export type DataType = {
+    id: number;
+    column1: string;
+    column2: string;
+    language: string;
+  }
   

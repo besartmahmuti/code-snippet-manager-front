@@ -1,24 +1,24 @@
-import { Button, Container, Table, InputGroup, Form, Dropdown, DropdownButton, Pagination } from "react-bootstrap"
+import { Button, Container, Table, InputGroup, Form, Dropdown, DropdownButton } from "react-bootstrap"
 import withHeaderAndFooter from "../../hoc/withHeaderAndFooter"
 import { AiOutlineDelete, AiOutlineEdit, AiOutlineSearch } from "react-icons/ai";
 import { DATA } from "../../lib/constants";
 import { useState } from "react";
+import PaginationComponent from "../../components/Pagination";
 
 
 const Snippet = () => {
-  const itemsPerPage = 5;
+  const itemsPerPage = 6;
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(DATA.length / itemsPerPage);
-  const handleEdit = (id: number) =>{
-
-  }
-  const handleDelete = (id: number) =>{
-
-  }
   const pageData = DATA.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
+
+  const handleEdit = (id: number) =>{}
+  
+  const handleDelete = (id: number) =>{}
+
   return (
     <Container fluid className={"p-2 container mt-5"} style={{ backgroundColor :'#f8f9fa'}}>
       <div className="d-flex justify-content-between align-items-center">
@@ -76,38 +76,7 @@ const Snippet = () => {
         
       </Table>
    
-    <div className="d-flex justify-content-between align-items-center">
-      <div>
-        Showing {pageData.length} of {DATA.length} entries
-      </div>
-      <Pagination>
-        <Pagination.First
-          onClick={() => setCurrentPage(1)}
-          disabled={currentPage === 1}
-        />
-        <Pagination.Prev
-          onClick={() => setCurrentPage(currentPage - 1)}
-          disabled={currentPage === 1}
-        />
-        {Array.from({ length: totalPages }, (_, index) => (
-          <Pagination.Item
-            key={index}
-            active={index + 1 === currentPage}
-            onClick={() => setCurrentPage(index + 1)}
-          >
-            {index + 1}
-          </Pagination.Item>
-        ))}
-        <Pagination.Next
-          onClick={() => setCurrentPage(currentPage + 1)}
-          disabled={currentPage === totalPages}
-        />
-        <Pagination.Last
-          onClick={() => setCurrentPage(totalPages)}
-          disabled={currentPage === totalPages}
-        />
-      </Pagination>
-    </div>
+      <PaginationComponent pageData={pageData} currentPage={currentPage} totalPages={totalPages} setCurrentPage={setCurrentPage}  />
     </Container >
   )
 }
