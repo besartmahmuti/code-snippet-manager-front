@@ -4,8 +4,8 @@ import { Button, Form } from "react-bootstrap";
 import { FormProps } from "../../lib/types";
 import { LOGO } from "../../lib/constants";
 import './costumeForm.module.scss'
-import {  login } from "../../lib/store/slices/auth";
-import styles from  './costumeForm.module.scss'
+import { login } from "../../lib/store/slices/auth";
+import styles from './costumeForm.module.scss'
 import { useNavigate } from "react-router-dom";
 
 const CostumeForm: FC<FormProps> = ({ isRegistering, usernameLabel, passwordLabel, title, fullNameLabel, emailLabel }) => {
@@ -18,27 +18,27 @@ const CostumeForm: FC<FormProps> = ({ isRegistering, usernameLabel, passwordLabe
     const [userName, setUserName] = useState("");
 
     const handleSubmit = (event: any) => {
-   
+
         event.preventDefault();
-        if(isRegistering){
+        if (isRegistering) {
             console.log("from form Email:", email, "Password:", password, "fullName:", fullName, "userName", userName);
-        }else{
+        } else {
             console.log("from form Email:", email, "Password:", password)
-            dispatch(login({ isLoggedIn: true, username: email,  }));
-        
+            dispatch(login({ isLoggedIn: true, username: email, }));
+
             navigate("/snippet");
         }
-      
+
     };
     return (
-        <div className={"container mt-5 p-5 " + styles.myFormStyle}  >
+        <div className={"container mt-5 p-5 text-center " + styles.myFormStyle}  >
             <h1>{title}</h1>
-            <img  src={LOGO} className={"img-fluid " + styles.myImg}  alt="placeholder" />
+            <img src={LOGO} className={"img-fluid " + styles.myImg} alt="placeholder" />
             <Form onSubmit={handleSubmit}>
                 {isRegistering &&
                     <>
-                        <Form.Group controlId="formBasicEmail">
-                            <Form.Label>{fullNameLabel}</Form.Label>
+                        <Form.Group controlId="formBasicEmail" className="mt-2">
+
                             <Form.Control
                                 type="text"
                                 placeholder={"Type your full name"}
@@ -46,8 +46,8 @@ const CostumeForm: FC<FormProps> = ({ isRegistering, usernameLabel, passwordLabe
                                 onChange={(event) => setFullName(event.target.value)}
                             />
                         </Form.Group>
-                        <Form.Group controlId="formBasicEmail">
-                            <Form.Label>{usernameLabel}</Form.Label>
+                        <Form.Group controlId="formBasicEmail" className="mt-2">
+
                             <Form.Control
                                 type="text"
 
@@ -59,8 +59,9 @@ const CostumeForm: FC<FormProps> = ({ isRegistering, usernameLabel, passwordLabe
                     </>
                 }
 
-                <Form.Group controlId="formBasicEmail">
-                    <Form.Label>{emailLabel}</Form.Label>
+                <Form.Group controlId="formBasicEmail" className="mt-2">
+
+
                     <Form.Control
                         type="email"
 
@@ -70,8 +71,8 @@ const CostumeForm: FC<FormProps> = ({ isRegistering, usernameLabel, passwordLabe
                     />
                 </Form.Group>
 
-                <Form.Group controlId="formBasicPassword" >
-                    <Form.Label>{passwordLabel}</Form.Label>
+                <Form.Group controlId="formBasicPassword" className="mt-2" >
+
                     <Form.Control
                         type="password"
                         placeholder={passwordLabel}
