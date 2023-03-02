@@ -20,11 +20,11 @@ const Snippet = () => {
   const handleDelete = (id: number) =>{}
 
   return (
-    <Container fluid className={"p-2 container mt-5"} style={{ backgroundColor :'#f8f9fa'}}>
+    <Container fluid className={"p-2 container mt-5 text-center"} style={{ backgroundColor :'#f8f9fa'}}>
       <div className="d-flex justify-content-between align-items-center">
             <InputGroup className="m-3">
               <InputGroup.Text><AiOutlineSearch /></InputGroup.Text>
-              <Form.Control aria-label="Amount (to the nearest dollar)" />
+              <Form.Control placeholder="Search..." />
               <DropdownButton
                 variant="outline-secondary"
                 title="Filter"
@@ -46,7 +46,7 @@ const Snippet = () => {
             </div>
      
         
-        <Table bordered responsive>
+        <Table bordered responsive className="text-center">
          
         <thead>
           <tr>
@@ -59,10 +59,10 @@ const Snippet = () => {
         {pageData.map((item, index) => (
             <tr key={item.id}>
               
-              <td>{item.column1}</td>
+              <td >{item.column1}</td>
               <td>{item.column2}</td>
              
-              <td>
+              <td  style={{ width: '150px' }}>
                 <Button variant="warning" onClick={() => handleEdit(item.id)}>
                   <AiOutlineEdit />
                 </Button>{" "}
