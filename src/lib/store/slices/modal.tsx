@@ -22,10 +22,10 @@ export const modalSlice = createSlice({
   initialState,
   reducers: {
     showModal: (state, actions: PayloadAction<ModalTypes>) => {
-      state.value = { ...actions.payload, state: state.value.state }
+      state.value = { ...actions.payload, state: actions.payload.state }
     },
-    hideModal: (state) => {
-      state.value = {...initialState.value}
+    hideModal: (state,actions: PayloadAction<boolean>) => {
+      state.value.state = actions.payload
     }
   },
 })

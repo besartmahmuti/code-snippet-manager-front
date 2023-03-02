@@ -12,8 +12,8 @@ const CostumeModal: React.FC<Props> = ({ state, title, body, footer, onDismiss }
 
 
   return state ? (
-    <Modal show={state} >
-      <Modal.Header closeButton >
+    <Modal show={state}  >
+      <Modal.Header  >
         <Modal.Title>{title}</Modal.Title>
       </Modal.Header>
       <Modal.Body>{body}</Modal.Body>
