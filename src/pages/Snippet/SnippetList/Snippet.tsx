@@ -4,9 +4,13 @@ import { AiOutlineDelete, AiOutlineEdit, AiOutlineSearch } from "react-icons/ai"
 import { DATA } from "../../../lib/constants";
 import { useState } from "react";
 import PaginationComponent from "../../../components/Pagination";
+import { useDispatch } from "react-redux";
+import { showModal } from "../../../lib/store/slices/modal";
+import DeleteModalContent from "../../../components/ConfirmationModal/DeleteModalContent";
 
 
 const Snippet = () => {
+  const dispatch = useDispatch()
   const itemsPerPage = 6;
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(DATA.length / itemsPerPage);
@@ -17,7 +21,15 @@ const Snippet = () => {
 
   const handleEdit = (id: number) =>{}
   
-  const handleDelete = (id: number) =>{}
+  const handleDelete = (id: number) =>{
+    dispatch(showModal({
+      state: true,
+      title: "Delete",
+      body: "Are u sure u want to delete this item",
+      footer: <DeleteModalContent />
+    }))
+  
+  }
 
   return (
     <Container fluid className={"p-2 container mt-5 text-center"} style={{ backgroundColor :'#f8f9fa'}}>

@@ -23,6 +23,7 @@ export type FormProps = {
   export type ModalTypes={
     state: boolean,
     title: string,
-    content: React.ReactElement
+    body: string,
+    footer: React.ReactElement
   }
   

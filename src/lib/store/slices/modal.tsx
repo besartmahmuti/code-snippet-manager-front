@@ -7,7 +7,8 @@ const initialState: { value: ModalTypes  } = {
   value: {
     state: false,
     title: "",
-    content: <></>,
+    body: "",
+    footer: <></>,
   },
 }
 const persistConfig = {
