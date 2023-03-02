@@ -20,14 +20,14 @@ export const modalSlice = createSlice({
   name: "modal",
   initialState,
   reducers: {
-    showModalContent: (state, actions: PayloadAction<ModalTypes>) => {
+    showModal: (state, actions: PayloadAction<ModalTypes>) => {
       state.value = { ...actions.payload, state: state.value.state }
     },
-    hideModalState: (state) => {
+    hideModal: (state) => {
       state.value = {...initialState.value}
     }
   },
 })
 
-export const { showModalContent, hideModalState } = modalSlice.actions;
+export const { showModal, hideModal } = modalSlice.actions;
 export default persistReducer(persistConfig, modalSlice.reducer)
