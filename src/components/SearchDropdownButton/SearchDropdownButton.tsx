@@ -12,6 +12,7 @@ const SearchDropdownButton: FC<Props> = ( { options, onSelect }) => {
   const [selectedIndex, setSelectedIndex] = useState<number>(-1);
 
   const handleSelectOption = (option: string) => {
+    console.log('test')
     setSelectedOption(option);
     onSelect(option);
   };
@@ -35,6 +36,7 @@ const SearchDropdownButton: FC<Props> = ( { options, onSelect }) => {
     } else if (e.key === 'Enter') {
       e.preventDefault();
       if (selectedIndex !== -1) {
+        
         handleSelectOption(filteredOptions[selectedIndex]);
         
         setSelectedIndex(-1);
@@ -64,7 +66,7 @@ const SearchDropdownButton: FC<Props> = ( { options, onSelect }) => {
           <Dropdown.Item
             key={option}
             active={index === selectedIndex}
-            onSelect={() => handleSelectOption(option)}
+            onSelect={() => {console.log() }}
           >
             {option}
           </Dropdown.Item>

@@ -20,7 +20,7 @@ const AddSnippet = () => {
   });
   console.log(formData);
   const [saving, setSaving] = useState(true)
-  const languages = SyntaxHighlighter.supportedLanguages;
+  const languages = ['javascript', 'java', 'node-repl', 'c' , 'php','python']
   const [language, setLanguage] = useState('')
   const [code, setCode] = useState('')
   const [title, setTitle] = useState('')
@@ -29,6 +29,8 @@ const AddSnippet = () => {
   const handleSelect = (option: string) => {
     setLanguage(option)
   };
+
+ 
 
   const handleSaving = () => {
     setFormattedCode(prettier.format(code, {
@@ -54,7 +56,7 @@ const AddSnippet = () => {
     
       {saving ?
       <> 
-         <h3>Add snippet</h3>
+         <h4>Add snippet</h4>
         <Card>
           <Card.Header>
             <div className="d-flex justify-content-between align-items-center">
@@ -72,7 +74,7 @@ const AddSnippet = () => {
           <Card.Body>
             <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
               <Form.Label>Past a snippet of code</Form.Label>
-              <Form.Control as="textarea" rows={18} value={code} onChange={(event) => setCode(event.target.value)} />
+              <Form.Control as="textarea" rows={13} value={code} onChange={(event) => setCode(event.target.value)} />
             </Form.Group>
             <Button variant="primary" onClick={() => {
               handleSaving();
