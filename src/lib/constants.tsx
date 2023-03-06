@@ -1,3 +1,6 @@
+
+
+
 export const LOGO = require('../assets/logo/icon_logo.PNG');
 
 export const DATA = [
@@ -18,3 +21,6 @@ export const DATA = [
     { id: 15, column1: "Data 15", column2: "Officia Deserunt Mollit", language: "spanish" },
     { id: 16, column1: "Data 16", column2: "Anim Id Est Laborum", language: "french" },
   ];
+
+
+  

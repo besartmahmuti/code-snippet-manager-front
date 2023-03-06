@@ -1,57 +1,50 @@
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import withHeaderAndFooter from '../../../hoc/withHeaderAndFooter';
-// import { github } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import { darcula } from 'react-syntax-highlighter/dist/esm/styles/hljs';
-import prettier from 'prettier/standalone';
-import parserBabel from 'prettier/parser-babel';
 import { Button, Card, Container, Form } from 'react-bootstrap';
-import { useState } from 'react';
 import SearchDropdownButton from '../../../components/SearchDropdownButton';
+import { useState } from 'react';
+
+;
 interface SnippetFormData {
   title: string;
   language: string;
-  formattedCode: string;
+  code: string;
 }
 const AddSnippet = () => {
   const [formData, setFormData] = useState<SnippetFormData>({
     title: '',
     language: '',
-    formattedCode: ''
+    code: ''
   });
 
   const [saving, setSaving] = useState(true)
-  const languages = ['javascript', 'java', 'node-repl', 'c' , 'php','python']
+  const languages = ['plaintext','javascript', 'java', 'node-repl', 'c' , 'php','python']
   const [language, setLanguage] = useState('')
-  const [code, setCode] = useState('')
+  const [code, setCode] = useState(``)
   const [title, setTitle] = useState('')
-  const [formattedCode, setFormattedCode] = useState('')
 
+  console.log(SyntaxHighlighter.supportedLanguages)
   const handleSelect = (option: string) => {
     setLanguage(option)
   };
 
+
  
 
   const handleSaving = () => {
-    try {
-      setFormattedCode(prettier.format(code, {
-        parser: 'babel',
-        plugins: [parserBabel],
-        printWidth: 80,
-        tabWidth: 2,
-        useTabs: false,
-        semi: true,
-        singleQuote: true,
-        trailingComma: 'es5',
-      }))
-      const data: SnippetFormData = { title, language, formattedCode }
+    // try {
+
+
+
+      const data: SnippetFormData = { title, language, code }
       setFormData(data)
       console.log(formData)
       setSaving(!saving)
 
-    } catch (error) {
-      console.log("your javascrip Code format is incorrect")
-    }
+    // } catch (error) {
+    //   console.log("your javascrip Code format is incorrect")
+    // }
     
     // const data: SnippetFormData = { title, language, formattedCode }
     // setFormData(data)
@@ -59,7 +52,15 @@ const AddSnippet = () => {
     // setSaving(!saving)
   }
 
-
+const copyToClipboard = () =>{
+  navigator.clipboard.writeText(code)
+  .then(() => {
+    console.log('Text copied to clipboard');
+  })
+  .catch((error) => {
+    console.error('Error copying text: ', error);
+  });
+}
 
 
   return (
@@ -93,9 +94,15 @@ const AddSnippet = () => {
           </Card.Body>
         </Card> </> :
         <>
-           <h3>{title}</h3> <h6>({language})</h6>
-        <SyntaxHighlighter language={language} style={darcula} >
-          {formattedCode}
+         <div className="d-flex justify-content-between align-items-center">
+           <h3>{title} <h6>({language})</h6> </h3> 
+          
+           <Button variant="primary" onClick={() => {
+              copyToClipboard();
+            }}>Copy</Button>
+             </div>
+        <SyntaxHighlighter showLineNumbers={true}  language={language} style={darcula} >
+          {code}
         </SyntaxHighlighter>
         <Button variant="primary" onClick={() => {
               handleSaving();
