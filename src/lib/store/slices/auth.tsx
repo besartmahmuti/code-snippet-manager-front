@@ -23,7 +23,7 @@ export const authSlice = createSlice({
       console.log(actions.payload)
       state.value = { ...actions.payload }
 
-      console.log('test', state.value);
+      
     },
     logout: (state) => {
       state.value = { ...initialState.value }

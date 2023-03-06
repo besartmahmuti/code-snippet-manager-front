@@ -43,11 +43,12 @@ const Snippet = () => {
                 id="input-group-dropdown-2"
                 align="end"
               >
-                <Dropdown.Item href="#">Action</Dropdown.Item>
-                <Dropdown.Item href="#">Another action</Dropdown.Item>
-                <Dropdown.Item href="#">Something else here</Dropdown.Item>
-                <Dropdown.Divider />
-                <Dropdown.Item href="#">Separated link</Dropdown.Item>
+                <Dropdown.Item href="#">javascript</Dropdown.Item>
+                <Dropdown.Item href="#">java</Dropdown.Item>
+                <Dropdown.Item href="#">node-repl</Dropdown.Item>
+                <Dropdown.Item href="#">c</Dropdown.Item>
+                <Dropdown.Item href="#">php</Dropdown.Item>
+                <Dropdown.Item href="#">python</Dropdown.Item>
               </DropdownButton>
             </InputGroup>
         

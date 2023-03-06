@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useRef, useState  } from 'react';
 import { Button, Dropdown, FormControl } from 'react-bootstrap';
 
 interface Props {
@@ -10,11 +10,15 @@ const SearchDropdownButton: FC<Props> = ( { options, onSelect }) => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [selectedIndex, setSelectedIndex] = useState<number>(-1);
+  const [showDropdown , setShowDropdown] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleSelectOption = (option: string) => {
-    console.log('test')
+
     setSelectedOption(option);
     onSelect(option);
+    setSearchTerm('')
+    setShowDropdown(false);
   };
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,12 +53,13 @@ const SearchDropdownButton: FC<Props> = ( { options, onSelect }) => {
   );
 
   return (
-    <Dropdown onKeyDown={handleKeyDown}>
-      <Dropdown.Toggle as={Button} variant="primary">
+    <Dropdown show={showDropdown} onKeyDown={handleKeyDown}>
+      <Dropdown.Toggle onClick={()=>{setShowDropdown(!showDropdown)}} as={Button} variant="primary">
         {selectedOption || 'Select Language'}
       </Dropdown.Toggle>
-      <Dropdown.Menu>
-        <FormControl
+      <Dropdown.Menu >
+        <FormControl 
+          ref={inputRef}
           type="text"
           placeholder="Search"
           className="mx-3 my-2 w-auto"
@@ -66,7 +71,7 @@ const SearchDropdownButton: FC<Props> = ( { options, onSelect }) => {
           <Dropdown.Item
             key={option}
             active={index === selectedIndex}
-            onSelect={() => {console.log() }}
+            onClick={() => { handleSelectOption(option) }}
           >
             {option}
           </Dropdown.Item>

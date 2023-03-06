@@ -18,7 +18,7 @@ const AddSnippet = () => {
     language: '',
     formattedCode: ''
   });
-  console.log(formData);
+
   const [saving, setSaving] = useState(true)
   const languages = ['javascript', 'java', 'node-repl', 'c' , 'php','python']
   const [language, setLanguage] = useState('')
