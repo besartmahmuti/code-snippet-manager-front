@@ -45,6 +45,7 @@ const AddSnippet = () => {
     }))
     const data: SnippetFormData = { title, language, formattedCode }
     setFormData(data)
+    console.log(formData)
     setSaving(!saving)
   }
 

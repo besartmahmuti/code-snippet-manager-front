@@ -1,4 +1,4 @@
-import React, { FC, useRef, useState  } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import { Button, Dropdown, FormControl } from 'react-bootstrap';
 
 interface Props {
@@ -6,11 +6,11 @@ interface Props {
   onSelect: (option: string) => void;
 }
 
-const SearchDropdownButton: FC<Props> = ( { options, onSelect }) => {
+const SearchDropdownButton: FC<Props> = ({ options, onSelect }) => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [selectedIndex, setSelectedIndex] = useState<number>(-1);
-  const [showDropdown , setShowDropdown] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleSelectOption = (option: string) => {
@@ -19,6 +19,7 @@ const SearchDropdownButton: FC<Props> = ( { options, onSelect }) => {
     onSelect(option);
     setSearchTerm('')
     setShowDropdown(false);
+
   };
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,9 +41,9 @@ const SearchDropdownButton: FC<Props> = ( { options, onSelect }) => {
     } else if (e.key === 'Enter') {
       e.preventDefault();
       if (selectedIndex !== -1) {
-        
+
         handleSelectOption(filteredOptions[selectedIndex]);
-        
+
         setSelectedIndex(-1);
       }
     }
@@ -52,13 +53,21 @@ const SearchDropdownButton: FC<Props> = ( { options, onSelect }) => {
     option.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  useEffect(() => {
+    if (showDropdown) {
+      inputRef.current?.focus();
+    }
+  }, [showDropdown])
+
+
   return (
     <Dropdown show={showDropdown} onKeyDown={handleKeyDown}>
-      <Dropdown.Toggle onClick={()=>{setShowDropdown(!showDropdown)}} as={Button} variant="primary">
+      <Dropdown.Toggle onClick={() => { setShowDropdown(!showDropdown) }} as={Button} variant="primary">
         {selectedOption || 'Select Language'}
       </Dropdown.Toggle>
       <Dropdown.Menu >
-        <FormControl 
+        <FormControl
+         
           ref={inputRef}
           type="text"
           placeholder="Search"
