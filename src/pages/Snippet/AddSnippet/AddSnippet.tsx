@@ -33,20 +33,30 @@ const AddSnippet = () => {
  
 
   const handleSaving = () => {
-    setFormattedCode(prettier.format(code, {
-      parser: 'babel',
-      plugins: [parserBabel],
-      printWidth: 80,
-      tabWidth: 2,
-      useTabs: false,
-      semi: true,
-      singleQuote: true,
-      trailingComma: 'es5',
-    }))
-    const data: SnippetFormData = { title, language, formattedCode }
-    setFormData(data)
-    console.log(formData)
-    setSaving(!saving)
+    try {
+      setFormattedCode(prettier.format(code, {
+        parser: 'babel',
+        plugins: [parserBabel],
+        printWidth: 80,
+        tabWidth: 2,
+        useTabs: false,
+        semi: true,
+        singleQuote: true,
+        trailingComma: 'es5',
+      }))
+      const data: SnippetFormData = { title, language, formattedCode }
+      setFormData(data)
+      console.log(formData)
+      setSaving(!saving)
+
+    } catch (error) {
+      console.log("your javascrip Code format is incorrect")
+    }
+    
+    // const data: SnippetFormData = { title, language, formattedCode }
+    // setFormData(data)
+    // console.log(formData)
+    // setSaving(!saving)
   }
 
 
