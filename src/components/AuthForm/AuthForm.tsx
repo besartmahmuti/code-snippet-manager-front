@@ -7,6 +7,7 @@ import './costumeForm.module.scss'
 import { login } from "../../lib/store/slices/auth";
 import styles from './costumeForm.module.scss'
 import { useNavigate } from "react-router-dom";
+import { updateAlertContent } from "../../lib/store/slices/alert";
 
 const CostumeForm: FC<FormProps> = ({ isRegistering, usernameLabel, passwordLabel, title, fullNameLabel, emailLabel }) => {
     const dispatch = useDispatch();
@@ -21,12 +22,32 @@ const CostumeForm: FC<FormProps> = ({ isRegistering, usernameLabel, passwordLabe
 
         event.preventDefault();
         if (isRegistering) {
-            console.log("from form Email:", email, "Password:", password, "fullName:", fullName, "userName", userName);
-        } else {
-            console.log("from form Email:", email, "Password:", password)
-            dispatch(login({ isLoggedIn: true, username: email, }));
+            if (email.trim() === '' || password.trim() === '' || fullName.trim() === '' || userName.trim() === '') {
+                dispatch(updateAlertContent({
+                    state: true,
+                    title: 'Error',
+                    content: 'All fields are required',
+                    type: 'danger'
+                }))
+            } else {
+                console.log("from form Email:", email, "Password:", password, "fullName:", fullName, "userName", userName);
+            }
 
-            navigate("/snippet");
+        } else {
+            if (email.trim() === '' || password.trim() === '') {
+                dispatch(updateAlertContent({
+                    state: true,
+                    title: 'Error',
+                    content: 'Email or password is incorrect',
+                    type: 'danger'
+                }))
+            } else {
+                console.log("from form Email:", email, "Password:", password)
+                dispatch(login({ isLoggedIn: true, username: email, }));
+
+                navigate("/snippet");
+            }
+
         }
 
     };
