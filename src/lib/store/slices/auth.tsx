@@ -20,7 +20,7 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     login: (state, actions: PayloadAction<authType>) => {
-      console.log(actions.payload)
+     
       state.value = { ...actions.payload }
 
       

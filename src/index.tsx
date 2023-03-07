@@ -9,6 +9,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
 
 import GlobalModal from './components/ConfirmationModal/GlobalModal';
+import GlobalAlert from './components/Alerts/GlobalAlert';
 
 const persistor = persistStore(store)
 
@@ -19,6 +20,7 @@ root.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <React.StrictMode>
+        <GlobalAlert />
         <GlobalModal />
         <App />
       </React.StrictMode>

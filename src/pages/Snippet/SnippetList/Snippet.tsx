@@ -23,7 +23,7 @@ const Snippet = () => {
   
   const handleDelete = (id: number) =>{
     dispatch(showModal({
-      state: true,
+      show: true,
       title: "Delete",
       body: "Are u sure u want to delete this item",
       footer: <DeleteModalContent />

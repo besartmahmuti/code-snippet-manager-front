@@ -5,7 +5,7 @@ import { ModalTypes } from "../../types";
 
 const initialState: { value: ModalTypes  } = {
   value: {
-    state: false,
+    show: false,
     title: "",
     body: "",
     footer: <></>,
@@ -22,10 +22,10 @@ export const modalSlice = createSlice({
   initialState,
   reducers: {
     showModal: (state, actions: PayloadAction<ModalTypes>) => {
-      state.value = { ...actions.payload, state: actions.payload.state }
+      state.value = { ...actions.payload, show: actions.payload.show }
     },
     hideModal: (state,actions: PayloadAction<boolean>) => {
-      state.value.state = actions.payload
+      state.value.show = actions.payload
     }
   },
 })

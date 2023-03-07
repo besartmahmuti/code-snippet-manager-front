@@ -1,19 +1,21 @@
 import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 interface Props {
-  state: boolean
+  show: boolean
   title: string
   body: string
   footer: React.ReactElement
-  onDismiss: () => void
+  closeModal: () => void
 }
 
-const CostumeModal: React.FC<Props> = ({ state, title, body, footer, onDismiss }) => {
+const CostumeModal: React.FC<Props> = ({ show, title, body, footer, closeModal }) => {
 
 
-  return state ? (
-    <Modal show={state}  >
-      <Modal.Header  >
+  return show ? (
+    <Modal show={show} 
+      onHide={closeModal}
+    >
+      <Modal.Header  closeButton   >
         <Modal.Title>{title}</Modal.Title>
       </Modal.Header>
       <Modal.Body>{body}</Modal.Body>

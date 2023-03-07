@@ -23,9 +23,15 @@ export type FormProps = {
     language: string;
   }
   export type ModalTypes={
-    state: boolean,
+    show: boolean,
     title: string,
     body: string,
     footer: React.ReactElement
+  }
+  export type AlertTypes= {
+    state: boolean,
+    title: string, 
+    content:string,
+    type: string
   }
   

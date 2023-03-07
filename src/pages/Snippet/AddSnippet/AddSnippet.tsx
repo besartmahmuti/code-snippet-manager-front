@@ -24,7 +24,7 @@ const AddSnippet = () => {
   const [code, setCode] = useState(``)
   const [title, setTitle] = useState('')
 
-  console.log(SyntaxHighlighter.supportedLanguages)
+  
   const handleSelect = (option: string) => {
     setLanguage(option)
   };

@@ -4,14 +4,14 @@ import { RootState } from "../../lib/store/store";
 import CostumeModal from "./CostumeModal"
 
 const GlobalModal = () =>{
-  const { state, title, body, footer } = useSelector((state: RootState) => state.modal.value);
+  const { show, title, body, footer } = useSelector((state: RootState) => state.modal.value);
   const dispatch = useDispatch()
 
   const closeModal = () =>{
-    dispatch(hideModal)
+    dispatch(hideModal(false))
   }
   return(
-    <CostumeModal state={state} title={title} body={body} footer={footer} onDismiss={closeModal} />
+    <CostumeModal show={show} title={title} body={body} footer={footer} closeModal={closeModal} />
   )   
 }
 export default GlobalModal
