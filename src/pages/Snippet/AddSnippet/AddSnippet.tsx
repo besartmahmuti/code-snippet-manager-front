@@ -97,7 +97,7 @@ const AddSnippet = () => {
                   onChange={(event) => setTitle(event.target.value)}
                 />
 
-                <SearchDropdownButton options={languages} onSelect={handleSelect} />
+                <SearchDropdownButton selected={language} options={languages} onSelect={handleSelect} />
               </div>
             </Card.Header>
             <Card.Body>

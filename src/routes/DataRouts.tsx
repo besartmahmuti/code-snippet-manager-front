@@ -5,6 +5,7 @@ import Snippet from "../pages/Snippet/SnippetList";
 import Home from "../pages/Home";
 import Profile from "../pages/Profile";
 import AddSnippet from "../pages/Snippet/AddSnippet";
+import NotFound from "../pages/NotFound";
 
 
 export const publicRoutes = [
@@ -48,6 +49,11 @@ export const defaultRouts = [
         path: '/about',
         name: "About",
         page: <About />
+    },
+    {
+        path: '*',
+        name:"Not Found",
+        page: <NotFound />
     }
 ]
 const data = {

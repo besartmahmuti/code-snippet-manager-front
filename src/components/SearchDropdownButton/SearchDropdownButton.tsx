@@ -4,10 +4,11 @@ import { Button, Dropdown, FormControl } from 'react-bootstrap';
 interface Props {
   options: string[];
   onSelect: (option: string) => void;
+  selected: string
 }
 
-const SearchDropdownButton: FC<Props> = ({ options, onSelect }) => {
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+const SearchDropdownButton: FC<Props> = ({ options, onSelect, selected }) => {
+  const [selectedOption, setSelectedOption] = useState(selected);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [selectedIndex, setSelectedIndex] = useState<number>(-1);
   const [showDropdown, setShowDropdown] = useState(false);
