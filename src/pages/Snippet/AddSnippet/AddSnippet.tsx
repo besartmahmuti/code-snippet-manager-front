@@ -4,6 +4,8 @@ import { darcula } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import { Button, Card, Container, Form } from 'react-bootstrap';
 import SearchDropdownButton from '../../../components/SearchDropdownButton';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { updateAlertContent } from '../../../lib/store/slices/alert';
 
 ;
 interface SnippetFormData {
@@ -12,6 +14,7 @@ interface SnippetFormData {
   code: string;
 }
 const AddSnippet = () => {
+  const dispatch = useDispatch()
   const [formData, setFormData] = useState<SnippetFormData>({
     title: '',
     language: '',
@@ -55,7 +58,12 @@ const AddSnippet = () => {
 const copyToClipboard = () =>{
   navigator.clipboard.writeText(code)
   .then(() => {
-    console.log('Text copied to clipboard');
+    dispatch(updateAlertContent({
+      state: true,
+      title: 'Success', 
+      content: 'Snippet saved to clipboard',
+      type: 'success'
+    }))
   })
   .catch((error) => {
     console.error('Error copying text: ', error);

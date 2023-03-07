@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import {  Toast, ToastContainer } from 'react-bootstrap'
 
 interface Props {
@@ -6,12 +5,13 @@ interface Props {
   title: string
   content: string
   type: string
+  closeAlert: () => void
 }
-const CostumeAlert: React.FC<Props>  = ({state, title, content, type}) =>  {
-   const [show, setShow] = useState(state)
-    return (
+const CostumeAlert: React.FC<Props>  = ({state, title, content, type, closeAlert}) =>  {
+ 
+    return  state ? (
       <ToastContainer className="p-3" position='bottom-end'>
-      <Toast  onClose={() => setShow(false)} show={show} delay={4000} 
+      <Toast onClose={closeAlert} show={state} delay={4000} 
       autohide
       className="d-inline-block m-1"
       bg={type}
@@ -19,11 +19,7 @@ const CostumeAlert: React.FC<Props>  = ({state, title, content, type}) =>  {
 
     >
       <Toast.Header>
-        <img
-          src="holder.js/20x20?text=%20"
-          className="rounded me-2"
-          alt=""
-        />
+       
         <strong className="me-auto">{title}</strong>
       
       </Toast.Header>
@@ -32,7 +28,7 @@ const CostumeAlert: React.FC<Props>  = ({state, title, content, type}) =>  {
       </Toast.Body>
     </Toast>
     </ToastContainer>
-    )
+    ): null
   
 }
 
