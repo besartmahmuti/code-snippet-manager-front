@@ -13,11 +13,9 @@ const About = () => {
         <Col md={6}>
           <h2>About Us</h2>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi
-            varius augue libero, sed tristique nisi hendrerit id. Sed non
-            lacus in massa commodo tempor. Nam hendrerit ipsum a ligula porta,
-            eu commodo enim malesuada. Nulla facilisi. Donec non justo in
-            enim dapibus placerat vel vel ipsum. Sed vel commodo mi.
+          At CSM, we believe in simplifying the process of managing your code snippets.
+           Our easy-to-use web app is designed to help developers and programmers of all 
+           levels keep their code organized, accessible, and shareable.
           </p>
         </Col>
       </Row>
@@ -25,19 +23,18 @@ const About = () => {
         <Col md={6}>
           <h3>Our Mission</h3>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi
-            varius augue libero, sed tristique nisi hendrerit id. Sed non
-            lacus in massa commodo tempor. Nam hendrerit ipsum a ligula porta,
-            eu commodo enim malesuada.
+          Our mission is to provide a hassle-free and streamlined experience for code snippet management.
+           We want to empower developers to focus on what they do best - writing great code - 
+           by taking care of the tedious task of managing snippets.
           </p>
         </Col>
         <Col md={6}>
           <h3>Our Vision</h3>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi
-            varius augue libero, sed tristique nisi hendrerit id. Sed non
-            lacus in massa commodo tempor. Nam hendrerit ipsum a ligula porta,
-            eu commodo enim malesuada.
+          Our vision is to become the go-to platform for developers worldwide when it 
+          comes to managing their code snippets. We aim to provide the best user experience,
+           the most comprehensive feature set, and the most reliable platform to support 
+           developers in their quest to write better code.
           </p>
         </Col>
       </Row>

@@ -19,7 +19,7 @@ const Home = () => {
         <Col lg={6} className="p-5">
           <h1 className="display-4 mb-4">Welcome to code snippet manager</h1>
           <p className="lead mb-4">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae risus sed quam vestibulum fringilla.
+          Organize and store your favorite code snippets with ease. Our user-friendly web app lets you manage, save, and share your code snippets hassle-free.
           </p>
           {currentUser.isLoggedIn ? <Button variant="primary" href="/snippet" className='buttonMargin'>
             Get started
