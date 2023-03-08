@@ -26,11 +26,11 @@ const Snippet = () => {
     navigate(`/snippetDetails/${item}`);
   }
   
-  const handleDelete = (id: number) =>{
+  const handleDelete = (item: string) =>{
     dispatch(showModal({
       show: true,
       title: "Delete",
-      body: "Are u sure u want to delete this item",
+      body: "Are u sure u want to delete " + item,
       footer: <DeleteModalContent />
     }))
   
@@ -89,7 +89,7 @@ const Snippet = () => {
                 <Button variant="warning" onClick={() => handleEdit(item.id)}>
                   <AiOutlineEdit />
                 </Button>{" "}
-                <Button variant="danger" onClick={() => handleDelete(item.id)}>
+                <Button variant="danger" onClick={() => handleDelete(item.title)}>
                 <AiOutlineDelete />
                 </Button>
               </td>

@@ -11,7 +11,7 @@ const DeleteModalContent = () =>{
     return(
         <>
         <Button variant="secondary" onClick={()=>{closeModal()}}>Close</Button>
-          <Button variant="primary">Save changes</Button>
+          <Button variant="primary">Delete</Button>
           </>
     );
 }
