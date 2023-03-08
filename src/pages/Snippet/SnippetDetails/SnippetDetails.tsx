@@ -3,26 +3,37 @@ import withHeaderAndFooter from '../../../hoc/withHeaderAndFooter';
 import { darcula } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import { Button, Card, Container, Form } from 'react-bootstrap';
 import SearchDropdownButton from '../../../components/SearchDropdownButton';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { updateAlertContent } from '../../../lib/store/slices/alert';
 import { SnippetFormData } from '../../../lib/types';
+import { useParams } from 'react-router-dom';
+import { DATA } from '../../../lib/constants';
 
-const AddSnippet = () => {
+const SnippetDetails = () => {
   const dispatch = useDispatch()
+  const { id } = useParams();
   const [formData, setFormData] = useState<SnippetFormData>({
     title: '',
     language: '',
     code: ''
   });
 
+  useEffect(() => {
+    if (id) {
+      const item = DATA.find((data) => data.id === +id);
+     item && setFormData({ ...formData, title: item.title, language : item.language, code: item.code})
+    }
+  }, [])
+  
+ 
   const [saving, setSaving] = useState(true)
   const languages = ['plaintext', 'javascript', 'java', 'node-repl', 'c', 'php', 'python']
- 
+
 
 
   const handleSelect = (option: string) => {
-    setFormData({...formData, language : option})
+    setFormData({ ...formData, language: option })
 
   };
 
@@ -38,7 +49,7 @@ const AddSnippet = () => {
         type: 'danger'
       }))
     } else {
-    
+
       console.log(formData)
       setSaving(!saving)
     }
@@ -73,7 +84,7 @@ const AddSnippet = () => {
                   type="text"
                   value={formData.title}
                   placeholder={"Snippet title"}
-                  onChange={(event) => setFormData({...formData, title: event.target.value})}
+                  onChange={(event) => setFormData({ ...formData, title: event.target.value })}
                 />
 
                 <SearchDropdownButton selected={formData.language} options={languages} onSelect={handleSelect} />
@@ -82,7 +93,7 @@ const AddSnippet = () => {
             <Card.Body>
               <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                 <Form.Label>Past a snippet of code</Form.Label>
-                <Form.Control as="textarea" rows={13} value={formData.code} onChange={(event) => setFormData({...formData , code : event.target.value})} />
+                <Form.Control as="textarea" rows={13} value={formData.code} onChange={(event) => setFormData({ ...formData, code: event.target.value })} />
               </Form.Group>
               <Button variant="primary" onClick={() => {
                 handleSaving();
@@ -96,9 +107,9 @@ const AddSnippet = () => {
             <Button variant="primary" onClick={() => {
               copyToClipboard();
             }}>Copy</Button>
-                 
+
           </div>
-        
+
           <SyntaxHighlighter showLineNumbers={true} language={formData.language} style={darcula} >
             {formData.code}
           </SyntaxHighlighter>
@@ -107,9 +118,9 @@ const AddSnippet = () => {
           }}>Keep editing</Button>
         </>
       }
-    
-  
+
+
     </Container>
   );
 }
-export default withHeaderAndFooter(AddSnippet)
+export default withHeaderAndFooter(SnippetDetails)

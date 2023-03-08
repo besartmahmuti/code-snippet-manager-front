@@ -29,8 +29,13 @@ export const privateRouts = [
         page: <Snippet />
     },
     {
-        path: '/addSnippet',
-        name: 'Add Snippet',
+        path: '/snippetDetails',
+        name: 'Snippet Details',
+        page: <SnippetDetails />
+    },
+    {
+        path: '/snippetDetails/:id',
+        name: 'Edit Snippet',
         page: <SnippetDetails />
     },
     {

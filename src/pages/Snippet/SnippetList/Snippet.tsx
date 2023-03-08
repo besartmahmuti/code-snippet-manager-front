@@ -7,9 +7,12 @@ import PaginationComponent from "../../../components/Pagination";
 import { useDispatch } from "react-redux";
 import { showModal } from "../../../lib/store/slices/modal";
 import DeleteModalContent from "../../../components/ConfirmationModal/DeleteModalContent";
+import {  useNavigate } from "react-router-dom";
+
 
 
 const Snippet = () => {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const itemsPerPage = 6;
   const [currentPage, setCurrentPage] = useState(1);
@@ -19,7 +22,9 @@ const Snippet = () => {
     currentPage * itemsPerPage
   );
 
-  const handleEdit = (id: number) =>{}
+  const handleEdit = (item: number) =>{
+    navigate(`/snippetDetails/${item}`);
+  }
   
   const handleDelete = (id: number) =>{
     dispatch(showModal({
@@ -29,6 +34,11 @@ const Snippet = () => {
       footer: <DeleteModalContent />
     }))
   
+  }
+  const handleAdd = () =>{
+   navigate({
+    pathname: '/snippetDetails'
+  });
   }
 
   return (
@@ -53,7 +63,7 @@ const Snippet = () => {
             </InputGroup>
         
            
-            <Button variant="outline-success" href='/addSnippet'  className="m-3">
+            <Button variant="outline-success" onClick={()=>{handleAdd()}}   className="m-3">
               Add 
             </Button>
             </div>
@@ -72,15 +82,15 @@ const Snippet = () => {
         {pageData.map((item, index) => (
             <tr key={item.id}>
               
-              <td >{item.column1}</td>
-              <td>{item.column2}</td>
+              <td >{item.title}</td>
+              <td>{item.language}</td>
              
               <td  style={{ width: '150px' }}>
                 <Button variant="warning" onClick={() => handleEdit(item.id)}>
                   <AiOutlineEdit />
                 </Button>{" "}
                 <Button variant="danger" onClick={() => handleDelete(item.id)}>
-                <AiOutlineDelete/ >
+                <AiOutlineDelete />
                 </Button>
               </td>
             </tr>

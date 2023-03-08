@@ -15,12 +15,9 @@ export type FormProps = {
     username: string;
   }
 
-
- export type DataType = {
+ 
+ export interface DataType extends SnippetFormData {
     id: number;
-    column1: string;
-    column2: string;
-    language: string;
   }
   export type ModalTypes={
     show: boolean,
