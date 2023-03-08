@@ -20,7 +20,7 @@ export const alertSlice = createSlice({
   initialState,
   reducers: {
     updateAlertContent: (state, actions: PayloadAction<AlertTypes>) => {
-      console.log(actions)
+     
       state.value = { ...actions.payload, state: actions.payload.state }
     },
     updateAlertState: (state, actions: PayloadAction<boolean>) => {
