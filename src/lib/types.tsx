@@ -34,4 +34,9 @@ export type FormProps = {
     content:string,
     type: string
   }
+ export  interface SnippetFormData {
+    title: string;
+    language: string;
+    code: string;
+  }
   

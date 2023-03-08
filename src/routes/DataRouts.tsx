@@ -4,7 +4,7 @@ import Register from "../pages/Auth/Register";
 import Snippet from "../pages/Snippet/SnippetList";
 import Home from "../pages/Home";
 import Profile from "../pages/Profile";
-import AddSnippet from "../pages/Snippet/AddSnippet";
+import SnippetDetails from "../pages/Snippet/SnippetDetails";
 import NotFound from "../pages/NotFound";
 
 
@@ -31,7 +31,7 @@ export const privateRouts = [
     {
         path: '/addSnippet',
         name: 'Add Snippet',
-        page: <AddSnippet />
+        page: <SnippetDetails />
     },
     {
         path: '/profile',

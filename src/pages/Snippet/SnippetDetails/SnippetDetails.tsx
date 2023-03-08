@@ -6,13 +6,8 @@ import SearchDropdownButton from '../../../components/SearchDropdownButton';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { updateAlertContent } from '../../../lib/store/slices/alert';
+import { SnippetFormData } from '../../../lib/types';
 
-;
-interface SnippetFormData {
-  title: string;
-  language: string;
-  code: string;
-}
 const AddSnippet = () => {
   const dispatch = useDispatch()
   const [formData, setFormData] = useState<SnippetFormData>({
@@ -23,22 +18,19 @@ const AddSnippet = () => {
 
   const [saving, setSaving] = useState(true)
   const languages = ['plaintext', 'javascript', 'java', 'node-repl', 'c', 'php', 'python']
-  const [language, setLanguage] = useState('')
-  const [code, setCode] = useState(``)
-  const [title, setTitle] = useState('')
+ 
 
 
   const handleSelect = (option: string) => {
-    setLanguage(option)
+    setFormData({...formData, language : option})
+
   };
 
 
 
 
   const handleSaving = () => {
-    // try {
-
-    if (title.trim() === '' || language.trim() === '' || code.trim() === '') {
+    if (formData.title.trim() === '' || formData.language.trim() === '' || formData.code.trim() === '') {
       dispatch(updateAlertContent({
         state: true,
         title: 'Error',
@@ -46,26 +38,14 @@ const AddSnippet = () => {
         type: 'danger'
       }))
     } else {
-      const data: SnippetFormData = { title, language, code }
-      setFormData(data)
+    
       console.log(formData)
       setSaving(!saving)
     }
-
-
-
-    // } catch (error) {
-    //   console.log("your javascrip Code format is incorrect")
-    // }
-
-    // const data: SnippetFormData = { title, language, formattedCode }
-    // setFormData(data)
-    // console.log(formData)
-    // setSaving(!saving)
   }
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(code)
+    navigator.clipboard.writeText(formData.code)
       .then(() => {
         dispatch(updateAlertContent({
           state: true,
@@ -82,7 +62,6 @@ const AddSnippet = () => {
 
   return (
     <Container className="mt-3 mb-5">
-
       {saving ?
         <>
           <h4>Add snippet</h4>
@@ -92,18 +71,18 @@ const AddSnippet = () => {
                 <Form.Control
                   className='m-4'
                   type="text"
-                  value={title}
+                  value={formData.title}
                   placeholder={"Snippet title"}
-                  onChange={(event) => setTitle(event.target.value)}
+                  onChange={(event) => setFormData({...formData, title: event.target.value})}
                 />
 
-                <SearchDropdownButton selected={language} options={languages} onSelect={handleSelect} />
+                <SearchDropdownButton selected={formData.language} options={languages} onSelect={handleSelect} />
               </div>
             </Card.Header>
             <Card.Body>
               <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                 <Form.Label>Past a snippet of code</Form.Label>
-                <Form.Control as="textarea" rows={13} value={code} onChange={(event) => setCode(event.target.value)} />
+                <Form.Control as="textarea" rows={13} value={formData.code} onChange={(event) => setFormData({...formData , code : event.target.value})} />
               </Form.Group>
               <Button variant="primary" onClick={() => {
                 handleSaving();
@@ -112,20 +91,24 @@ const AddSnippet = () => {
           </Card> </> :
         <>
           <div className="d-flex justify-content-between align-items-center">
-            <h3>{title} <h6>({language})</h6> </h3>
+            <h3>{formData.title} <h6>({formData.language})</h6> </h3>
 
             <Button variant="primary" onClick={() => {
               copyToClipboard();
             }}>Copy</Button>
+                 
           </div>
-          <SyntaxHighlighter showLineNumbers={true} language={language} style={darcula} >
-            {code}
+        
+          <SyntaxHighlighter showLineNumbers={true} language={formData.language} style={darcula} >
+            {formData.code}
           </SyntaxHighlighter>
           <Button variant="primary" onClick={() => {
             handleSaving();
           }}>Keep editing</Button>
         </>
       }
+    
+  
     </Container>
   );
 }
