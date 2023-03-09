@@ -1,16 +1,18 @@
-import { Button, Container, Table, InputGroup, Form, Dropdown, DropdownButton } from "react-bootstrap"
+import { Button, Container, Table, InputGroup, Form, Dropdown, DropdownButton, Badge } from "react-bootstrap"
 import withHeaderAndFooter from "../../../hoc/withHeaderAndFooter"
 import { AiOutlineDelete, AiOutlineEdit, AiOutlineSearch, AiOutlineCopy } from "react-icons/ai";
+import { MdOutlineClear } from "react-icons/md"
 import { DATA } from "../../../lib/constants";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PaginationComponent from "../../../components/Pagination";
 import { useDispatch } from "react-redux";
 import { showModal } from "../../../lib/store/slices/modal";
 import DeleteModalContent from "../../../components/ConfirmationModal/DeleteModalContent";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styles from './Snippet.module.scss'
 import { updateAlertContent } from "../../../lib/store/slices/alert";
-import { copyToClipboard } from "../../../utils/copyToClibboard";
+import { copyToClipboard } from "../../../utils/copyToClipboard";
+import { DataType } from "../../../lib/types";
 
 
 
@@ -19,31 +21,58 @@ const Snippet = () => {
   const dispatch = useDispatch()
   const itemsPerPage = 6;
   const [currentPage, setCurrentPage] = useState(1);
+  const [filter, setFilter] = useState<string | null>('')
   const totalPages = Math.ceil(DATA.length / itemsPerPage);
-  const pageData = DATA.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
+  const [data, setData] = useState<DataType[]>()
 
-  const handleEdit = (item: number) =>{
-    navigate(`/snippetDetails/${item}`);
+  useEffect(() => {
+    if(filter){
+    const filteredData: DataType[] = DATA.filter(item => item.language === filter);
+    setData(filteredData.slice(
+      (currentPage - 1) * itemsPerPage,
+      currentPage * itemsPerPage
+    ))
+  }else{
+    setData(DATA);
   }
   
-  const handleDelete = (item: string) =>{
+// eslint-disable-next-line
+  }, [filter])
+
+
+
+
+  // const pageData = DATA.slice(
+  //   (currentPage - 1) * itemsPerPage,
+  //   currentPage * itemsPerPage
+  // );
+
+  const handleEdit = (item: number) => {
+    navigate(`/snippetDetails/${item}`);
+  }
+
+  const handleDelete = (item: string) => {
     dispatch(showModal({
       show: true,
       title: "Delete",
       body: "Are u sure u want to delete " + item,
       footer: <DeleteModalContent />
     }))
-  
+
   }
-  const handleAdd = () =>{
-   navigate({
-    pathname: '/snippetDetails'
-  });
+  const handleAdd = () => {
+    navigate({
+      pathname: '/snippetDetails'
+    });
   }
-  const copy = (code:string) => {
+  const handleSelect = (eventKey: string | null, e: React.SyntheticEvent<unknown | Event>) => {
+    const filterText = (e.target as HTMLAnchorElement).textContent
+
+    setFilter(filterText)
+
+
+  }
+  const copy = (code: string) => {
     copyToClipboard(code).then((success) => {
       if (success) {
         dispatch(updateAlertContent({
@@ -64,35 +93,46 @@ const Snippet = () => {
   }
 
   return (
-    <Container fluid className={"p-2 container mt-5 text-center"} style={{ backgroundColor :'#f8f9fa'}}>
+    <Container fluid className={"p-2 container mt-5 text-center"} style={{ backgroundColor: '#f8f9fa' }}>
+
       <div className="d-flex justify-content-between align-items-center">
-            <InputGroup className="m-3">
-              <InputGroup.Text><AiOutlineSearch /></InputGroup.Text>
-              <Form.Control placeholder="Search..." />
-              <DropdownButton
-                variant="outline-secondary"
-                title="Filter"
-                id="input-group-dropdown-2"
-                align="end"
-              >
-                <Dropdown.Item href="#">javascript</Dropdown.Item>
-                <Dropdown.Item href="#">java</Dropdown.Item>
-                <Dropdown.Item href="#">node-repl</Dropdown.Item>
-                <Dropdown.Item href="#">c</Dropdown.Item>
-                <Dropdown.Item href="#">php</Dropdown.Item>
-                <Dropdown.Item href="#">python</Dropdown.Item>
-              </DropdownButton>
-            </InputGroup>
-        
-           
-            <Button variant="outline-success" onClick={()=>{handleAdd()}}   className="m-3">
-              Add 
+        <InputGroup className="m-3">
+
+          <InputGroup.Text><AiOutlineSearch /></InputGroup.Text>
+          <Form.Control placeholder="Search..." />
+          <DropdownButton
+            variant="outline-secondary"
+            title="Filter"
+            id="input-group-dropdown-2"
+            align="end"
+            onSelect={handleSelect}
+          >
+            <Dropdown.Item href="#">plaintext</Dropdown.Item>
+            <Dropdown.Item href="#">javascript</Dropdown.Item>
+            <Dropdown.Item href="#">java</Dropdown.Item>
+            <Dropdown.Item href="#">node-repl</Dropdown.Item>
+            <Dropdown.Item href="#">c</Dropdown.Item>
+            <Dropdown.Item href="#">php</Dropdown.Item>
+            <Dropdown.Item href="#">python</Dropdown.Item>
+          </DropdownButton>
+          {filter &&
+            <Button variant="primary">
+              {filter} <Badge bg="secondary">9</Badge>
+
+              <MdOutlineClear className="mb-1" onClick={() => { setFilter('') }} />
             </Button>
-            </div>
-     
-        
-        <Table bordered responsive className={"text-center " + styles.table_hover}>
-         
+          }
+        </InputGroup>
+
+
+        <Button variant="outline-success" onClick={() => { handleAdd() }} className="m-3">
+          Add
+        </Button>
+      </div>
+
+
+      <Table bordered responsive className={"text-center " + styles.table_hover}>
+
         <thead>
           <tr>
             <th>Name</th>
@@ -101,31 +141,31 @@ const Snippet = () => {
           </tr>
         </thead>
         <tbody>
-        {pageData.map((item, index) => (
+          {data?.map((item, index) => (
             <tr key={item.id}>
-              
+
               <td >{item.title}</td>
               <td>{item.language}</td>
-             
-              <td  style={{ width: '200px' }}>
+
+              <td style={{ width: '200px' }}>
                 <Button variant="warning" onClick={() => handleEdit(item.id)}>
                   <AiOutlineEdit />
                 </Button>{" "}
                 <Button variant="primary" onClick={() => copy(item.code)}>
-                <AiOutlineCopy />
+                  <AiOutlineCopy />
                 </Button>{" "}
 
                 <Button variant="danger" onClick={() => handleDelete(item.title)}>
-                <AiOutlineDelete />
+                  <AiOutlineDelete />
                 </Button>
               </td>
             </tr>
           ))}
-      </tbody>
-        
+        </tbody>
+
       </Table>
-   
-      <PaginationComponent pageData={pageData} currentPage={currentPage} totalPages={totalPages} setCurrentPage={setCurrentPage}  />
+
+      <PaginationComponent pageData={data} currentPage={currentPage} totalPages={totalPages} setCurrentPage={setCurrentPage} />
     </Container >
   )
 }

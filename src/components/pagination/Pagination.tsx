@@ -3,7 +3,7 @@ import { Pagination } from 'react-bootstrap'
 import { DATA } from '../../lib/constants'
 import { DataType } from '../../lib/types'
 interface Props {
-  pageData: DataType[],
+  pageData?: DataType[],
   currentPage: number,
   totalPages: number,
   setCurrentPage:  React.Dispatch<React.SetStateAction<number>>
@@ -16,7 +16,7 @@ const PaginationComponent: React.FC<Props> = ({pageData, currentPage , totalPage
   return (
     <div className="d-flex justify-content-between align-items-center">
       <div>
-        Showing {pageData.length} of {DATA.length} entries
+        Showing {pageData?.length} of {DATA.length} entries
       </div>
       <Pagination>
         <Pagination.First

@@ -9,7 +9,7 @@ import { updateAlertContent } from '../../../lib/store/slices/alert';
 import { SnippetFormData } from '../../../lib/types';
 import { useParams } from 'react-router-dom';
 import { DATA } from '../../../lib/constants';
-import { copyToClipboard } from '../../../utils/copyToClibboard';
+import { copyToClipboard } from '../../../utils/copyToClipboard';
 
 const SnippetDetails = () => {
   const dispatch = useDispatch()
