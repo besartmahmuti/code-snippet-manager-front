@@ -1,6 +1,6 @@
 import { Button, Container, Table, InputGroup, Form, Dropdown, DropdownButton } from "react-bootstrap"
 import withHeaderAndFooter from "../../../hoc/withHeaderAndFooter"
-import { AiOutlineDelete, AiOutlineEdit, AiOutlineSearch } from "react-icons/ai";
+import { AiOutlineDelete, AiOutlineEdit, AiOutlineSearch, AiOutlineCopy } from "react-icons/ai";
 import { DATA } from "../../../lib/constants";
 import { useState } from "react";
 import PaginationComponent from "../../../components/Pagination";
@@ -8,6 +8,9 @@ import { useDispatch } from "react-redux";
 import { showModal } from "../../../lib/store/slices/modal";
 import DeleteModalContent from "../../../components/ConfirmationModal/DeleteModalContent";
 import {  useNavigate } from "react-router-dom";
+import styles from './Snippet.module.scss'
+import { updateAlertContent } from "../../../lib/store/slices/alert";
+import { copyToClipboard } from "../../../utils/copyToClibboard";
 
 
 
@@ -40,6 +43,25 @@ const Snippet = () => {
     pathname: '/snippetDetails'
   });
   }
+  const copy = (code:string) => {
+    copyToClipboard(code).then((success) => {
+      if (success) {
+        dispatch(updateAlertContent({
+          state: true,
+          title: 'Success',
+          content: 'Data copied to clipboard!',
+          type: 'success'
+        }))
+      } else {
+        dispatch(updateAlertContent({
+          state: true,
+          title: 'Failed',
+          content: 'Failed to copy data to clipboard!',
+          type: 'danger'
+        }))
+      }
+    });
+  }
 
   return (
     <Container fluid className={"p-2 container mt-5 text-center"} style={{ backgroundColor :'#f8f9fa'}}>
@@ -69,7 +91,7 @@ const Snippet = () => {
             </div>
      
         
-        <Table bordered responsive className="text-center">
+        <Table bordered responsive className={"text-center " + styles.table_hover}>
          
         <thead>
           <tr>
@@ -85,10 +107,14 @@ const Snippet = () => {
               <td >{item.title}</td>
               <td>{item.language}</td>
              
-              <td  style={{ width: '150px' }}>
+              <td  style={{ width: '200px' }}>
                 <Button variant="warning" onClick={() => handleEdit(item.id)}>
                   <AiOutlineEdit />
                 </Button>{" "}
+                <Button variant="primary" onClick={() => copy(item.code)}>
+                <AiOutlineCopy />
+                </Button>{" "}
+
                 <Button variant="danger" onClick={() => handleDelete(item.title)}>
                 <AiOutlineDelete />
                 </Button>

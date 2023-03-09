@@ -9,6 +9,7 @@ import { updateAlertContent } from '../../../lib/store/slices/alert';
 import { SnippetFormData } from '../../../lib/types';
 import { useParams } from 'react-router-dom';
 import { DATA } from '../../../lib/constants';
+import { copyToClipboard } from '../../../utils/copyToClibboard';
 
 const SnippetDetails = () => {
   const dispatch = useDispatch()
@@ -23,7 +24,7 @@ const SnippetDetails = () => {
     if (id) {
       const item = DATA.find((data) => data.id === +id);
      item && setFormData({ ...formData, title: item.title, language : item.language, code: item.code})
-    }
+    }// eslint-disable-next-line
   }, [])
   
  
@@ -49,25 +50,35 @@ const SnippetDetails = () => {
         type: 'danger'
       }))
     } else {
-
+      dispatch(updateAlertContent({
+        state: true,
+        title: 'Success',
+        content: 'Snippet saved successfully ',
+        type: 'success'
+      }))
       console.log(formData)
       setSaving(!saving)
     }
   }
 
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(formData.code)
-      .then(() => {
+  const copy = () => {
+    copyToClipboard(formData.code).then((success) => {
+      if (success) {
         dispatch(updateAlertContent({
           state: true,
           title: 'Success',
-          content: 'Snippet saved to clipboard',
+          content: 'Data copied to clipboard!',
           type: 'success'
         }))
-      })
-      .catch((error) => {
-        console.error('Error copying text: ', error);
-      });
+      } else {
+        dispatch(updateAlertContent({
+          state: true,
+          title: 'Failed',
+          content: 'Failed to copy data to clipboard!',
+          type: 'danger'
+        }))
+      }
+    });
   }
 
 
@@ -105,7 +116,7 @@ const SnippetDetails = () => {
             <h3>{formData.title} <h6>({formData.language})</h6> </h3>
 
             <Button variant="primary" onClick={() => {
-              copyToClipboard();
+              copy();
             }}>Copy</Button>
 
           </div>

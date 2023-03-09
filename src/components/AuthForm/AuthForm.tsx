@@ -30,6 +30,12 @@ const CostumeForm: FC<FormProps> = ({ isRegistering, usernameLabel, passwordLabe
                     type: 'danger'
                 }))
             } else {
+                dispatch(updateAlertContent({
+                    state: true,
+                    title: 'Success',
+                    content: 'Registered successfully',
+                    type: 'success'
+                }))
                 console.log("from form Email:", email, "Password:", password, "fullName:", fullName, "userName", userName);
             }
 
@@ -43,6 +49,12 @@ const CostumeForm: FC<FormProps> = ({ isRegistering, usernameLabel, passwordLabe
                 }))
             } else {
                 console.log("from form Email:", email, "Password:", password)
+                dispatch(updateAlertContent({
+                    state: true,
+                    title: 'Success',
+                    content: 'Logged in successfully',
+                    type: 'success'
+                }))
                 dispatch(login({ isLoggedIn: true, username: email, }));
 
                 navigate("/snippet");
