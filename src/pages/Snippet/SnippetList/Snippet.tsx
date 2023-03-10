@@ -22,30 +22,29 @@ const Snippet = () => {
   const itemsPerPage = 6;
   const [currentPage, setCurrentPage] = useState(1);
   const [filter, setFilter] = useState<string | null>('')
-  const totalPages = Math.ceil(DATA.length / itemsPerPage);
+  const [totalPages, setTotalPages] = useState(Math.ceil(DATA.length / itemsPerPage))
   const [data, setData] = useState<DataType[]>()
 
+
   useEffect(() => {
-    if(filter){
-    const filteredData: DataType[] = DATA.filter(item => item.language === filter);
-    setData(filteredData.slice(
-      (currentPage - 1) * itemsPerPage,
-      currentPage * itemsPerPage
-    ))
-  }else{
-    setData(DATA);
-  }
-  
-// eslint-disable-next-line
-  }, [filter])
+    if (filter) {
+      const filteredData: DataType[] = DATA.filter(item => item.language === filter);
+      setData(filteredData.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+      ))
+      data && setTotalPages(Math.ceil(filteredData.length / itemsPerPage))
+    } else {
+      setData((DATA.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+      )))
 
+      data && setTotalPages(Math.ceil(DATA.length / itemsPerPage))
+    }
 
-
-
-  // const pageData = DATA.slice(
-  //   (currentPage - 1) * itemsPerPage,
-  //   currentPage * itemsPerPage
-  // );
+    // eslint-disable-next-line
+  }, [filter, currentPage])
 
   const handleEdit = (item: number) => {
     navigate(`/snippetDetails/${item}`);
@@ -69,6 +68,7 @@ const Snippet = () => {
     const filterText = (e.target as HTMLAnchorElement).textContent
 
     setFilter(filterText)
+    setCurrentPage(1)
 
 
   }
@@ -102,7 +102,7 @@ const Snippet = () => {
           <Form.Control placeholder="Search..." />
           <DropdownButton
             variant="outline-secondary"
-            title="Filter"
+            title={filter || "Filter"}
             id="input-group-dropdown-2"
             align="end"
             onSelect={handleSelect}
@@ -117,11 +117,13 @@ const Snippet = () => {
           </DropdownButton>
           {filter &&
             <Button variant="primary">
-              {filter} <Badge bg="secondary">9</Badge>
-
-              <MdOutlineClear className="mb-1" onClick={() => { setFilter('') }} />
+              <MdOutlineClear className="mb-1" onClick={() => { setFilter(''); setCurrentPage(1) }} />
             </Button>
           }
+
+
+
+
         </InputGroup>
 
 
