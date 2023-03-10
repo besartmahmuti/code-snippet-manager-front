@@ -72,6 +72,26 @@ const Snippet = () => {
 
 
   }
+  const handleSearch = (search : string) =>{
+    console.log(search)
+      
+        const searchData: DataType[] = DATA.filter(item => item.title.toLowerCase().includes(search.toLowerCase()));
+        console.log(searchData);
+        setData((searchData?.slice(
+          (currentPage - 1) * itemsPerPage,
+          currentPage * itemsPerPage
+        )))
+  
+      if(search.trim()=== ""){
+        setData((DATA.slice(
+          (currentPage - 1) * itemsPerPage,
+          currentPage * itemsPerPage
+        )))
+      }
+      
+   
+
+  }
   const copy = (code: string) => {
     copyToClipboard(code).then((success) => {
       if (success) {
@@ -99,7 +119,7 @@ const Snippet = () => {
         <InputGroup className="m-3">
 
           <InputGroup.Text><AiOutlineSearch /></InputGroup.Text>
-          <Form.Control placeholder="Search..." />
+          <Form.Control placeholder="Search by name..." onChange={(event) =>{handleSearch(event.target.value)}} />
           <DropdownButton
             variant="outline-secondary"
             title={filter || "Filter"}
