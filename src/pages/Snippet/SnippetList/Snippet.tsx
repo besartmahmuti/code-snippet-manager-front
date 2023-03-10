@@ -1,4 +1,4 @@
-import { Button, Container, Table, InputGroup, Form, Dropdown, DropdownButton, Badge } from "react-bootstrap"
+import { Button, Container, Table, InputGroup, Form, Dropdown, DropdownButton } from "react-bootstrap"
 import withHeaderAndFooter from "../../../hoc/withHeaderAndFooter"
 import { AiOutlineDelete, AiOutlineEdit, AiOutlineSearch, AiOutlineCopy } from "react-icons/ai";
 import { MdOutlineClear } from "react-icons/md"
@@ -24,11 +24,19 @@ const Snippet = () => {
   const [filter, setFilter] = useState<string | null>('')
   const [totalPages, setTotalPages] = useState(Math.ceil(DATA.length / itemsPerPage))
   const [data, setData] = useState<DataType[]>()
+  const [search, setSearch] = useState('')
 
 
   useEffect(() => {
-    if (filter) {
-      const filteredData: DataType[] = DATA.filter(item => item.language === filter);
+    handleFilter()
+    // eslint-disable-next-line
+  }, [filter, currentPage, search])
+
+  const handleFilter = () =>{
+    console.log("test")
+    if (filter || search) {
+      const filteredData: DataType[] = DATA.filter(item => (filter ? item.language === filter : true) && ( search ? item.title.toLowerCase().includes(search.toLowerCase()  ) : true
+      ));
       setData(filteredData.slice(
         (currentPage - 1) * itemsPerPage,
         currentPage * itemsPerPage
@@ -43,8 +51,7 @@ const Snippet = () => {
       data && setTotalPages(Math.ceil(DATA.length / itemsPerPage))
     }
 
-    // eslint-disable-next-line
-  }, [filter, currentPage])
+  }
 
   const handleEdit = (item: number) => {
     navigate(`/snippetDetails/${item}`);
@@ -66,31 +73,12 @@ const Snippet = () => {
   }
   const handleSelect = (eventKey: string | null, e: React.SyntheticEvent<unknown | Event>) => {
     const filterText = (e.target as HTMLAnchorElement).textContent
-
     setFilter(filterText)
     setCurrentPage(1)
-
-
   }
-  const handleSearch = (search : string) =>{
-    console.log(search)
-      
-        const searchData: DataType[] = DATA.filter(item => item.title.toLowerCase().includes(search.toLowerCase()));
-        console.log(searchData);
-        setData((searchData?.slice(
-          (currentPage - 1) * itemsPerPage,
-          currentPage * itemsPerPage
-        )))
-  
-      if(search.trim()=== ""){
-        setData((DATA.slice(
-          (currentPage - 1) * itemsPerPage,
-          currentPage * itemsPerPage
-        )))
-      }
-      
-   
-
+  const handleSearch = (search: string) => {
+  setSearch(search)
+  setCurrentPage(1)
   }
   const copy = (code: string) => {
     copyToClipboard(code).then((success) => {
@@ -119,7 +107,8 @@ const Snippet = () => {
         <InputGroup className="m-3">
 
           <InputGroup.Text><AiOutlineSearch /></InputGroup.Text>
-          <Form.Control placeholder="Search by name..." onChange={(event) =>{handleSearch(event.target.value)}} />
+          
+          <Form.Control placeholder="Search by name..." onChange={(event) => { handleSearch(event.target.value) }} />
           <DropdownButton
             variant="outline-secondary"
             title={filter || "Filter"}
