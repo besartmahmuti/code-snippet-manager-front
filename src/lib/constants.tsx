@@ -17,9 +17,7 @@ export const DATA = [
     { id: 12, title: "Data 11", language: "c", code: "english" },
     { id: 13, title: "Data 12", language: "c", code: "english" },
     { id: 14, title: "Data 13", language: "c", code: "english" },
-    { id: 15, title: "Data 14", language: "c", code: "english" },
-
-    
+    { id: 15, title: "Data 14", language: "c", code: "english" },  
   ];
 
 

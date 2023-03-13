@@ -33,24 +33,18 @@ const Snippet = () => {
   }, [filter, currentPage, search])
 
   const handleFilter = () =>{
-    console.log("test")
+    let filteredData: DataType[]  = []
     if (filter || search) {
-      const filteredData: DataType[] = DATA.filter(item => (filter ? item.language === filter : true) && ( search ? item.title.toLowerCase().includes(search.toLowerCase()  ) : true
+      filteredData = DATA.filter(item => (filter ? item.language === filter : true) && ( search ? item.title.toLowerCase().includes(search.toLowerCase()  ) : true
       ));
-      setData(filteredData.slice(
-        (currentPage - 1) * itemsPerPage,
-        currentPage * itemsPerPage
-      ))
-      data && setTotalPages(Math.ceil(filteredData.length / itemsPerPage))
     } else {
-      setData((DATA.slice(
-        (currentPage - 1) * itemsPerPage,
-        currentPage * itemsPerPage
-      )))
-
-      data && setTotalPages(Math.ceil(DATA.length / itemsPerPage))
+      filteredData = DATA;
     }
-
+    setData((filteredData.slice(
+      (currentPage - 1) * itemsPerPage,
+      currentPage * itemsPerPage
+    )))
+    data && setTotalPages(Math.ceil(filteredData.length / itemsPerPage))
   }
 
   const handleEdit = (item: number) => {
