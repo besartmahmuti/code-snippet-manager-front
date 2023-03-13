@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 import { useDispatch } from 'react-redux';
-import { Button, Form } from "react-bootstrap";
+import { Button, Container, Form, Spinner } from "react-bootstrap";
 import { FormProps } from "../../lib/types";
 import { LOGO } from "../../lib/constants";
 import './costumeForm.module.scss'
@@ -12,15 +12,16 @@ import { updateAlertContent } from "../../lib/store/slices/alert";
 const CostumeForm: FC<FormProps> = ({ isRegistering, usernameLabel, passwordLabel, title, fullNameLabel, emailLabel }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
+    const [loading, setLoading] = useState(false)
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [fullName, setFullName] = useState("");
     const [userName, setUserName] = useState("");
 
     const handleSubmit = (event: any) => {
-
+       
         event.preventDefault();
+        setLoading(true);
         if (isRegistering) {
             if (email.trim() === '' || password.trim() === '' || fullName.trim() === '' || userName.trim() === '') {
                 dispatch(updateAlertContent({
@@ -61,9 +62,11 @@ const CostumeForm: FC<FormProps> = ({ isRegistering, usernameLabel, passwordLabe
             }
 
         }
-
+        setLoading(false);
     };
     return (
+        <> 
+        { loading ? <Container className="mt-3 mb-5 text-center">  <Spinner animation="grow" variant="dark" />  </Container> :
         <div className={"container mt-5 p-5 text-center " + styles.myFormStyle}  >
             <h1>{title}</h1>
             <img src={LOGO} className={"img-fluid " + styles.myImg} alt="placeholder" />
@@ -124,6 +127,8 @@ const CostumeForm: FC<FormProps> = ({ isRegistering, usernameLabel, passwordLabe
                     <a href='/register'> Create new account</a> : <a href="/login">Login</a>}
             </Form.Text>
         </div>
+            }
+        </>
     )
 }
 export default CostumeForm

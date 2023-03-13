@@ -1,7 +1,7 @@
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import withHeaderAndFooter from '../../../hoc/withHeaderAndFooter';
 import { darcula } from 'react-syntax-highlighter/dist/esm/styles/hljs';
-import { Button, Card, Container, Form } from 'react-bootstrap';
+import { Button, Card, Container, Form, Spinner } from 'react-bootstrap';
 import SearchDropdownButton from '../../../components/SearchDropdownButton';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -16,21 +16,26 @@ const SnippetDetails = () => {
   const dispatch = useDispatch()
   const [saving, setSaving] = useState(true)
   const { id , isSaving } = useParams();
+  const [loading, setLoading] = useState(false)
   const [formData, setFormData] = useState<SnippetFormData>({
     title: '',
     language: '',
     code: ''
-  });
+  }); 
+
 
 
   useEffect(() => {
+    setLoading(true)
     if (id) {
       const item = DATA.find((data) => data.id === +id);
      item && setFormData({ ...formData, title: item.title, language : item.language, code: item.code})
      
      setSaving((isSaving === 'true' ? true : false))
    
-    }// eslint-disable-next-line
+    }
+     setLoading(false)
+    // eslint-disable-next-line
   }, [])
   
  
@@ -48,6 +53,7 @@ const SnippetDetails = () => {
 
 
   const handleSaving = () => {
+    setLoading(true)
     if (formData.title.trim() === '' || formData.language.trim() === '' || formData.code.trim() === '') {
       dispatch(updateAlertContent({
         state: true,
@@ -65,6 +71,7 @@ const SnippetDetails = () => {
       console.log(formData)
       setSaving(!saving)
     }
+    setLoading(false)
   }
 
   const copy = () => {
@@ -89,6 +96,9 @@ const SnippetDetails = () => {
 
 
   return (
+    <> 
+    {loading   ? <Container className="mt-3 mb-5 text-center">  <Spinner animation="grow" variant="dark" />  </Container> : 
+   
     <Container className="mt-3 mb-5">
       {saving ?
         <>
@@ -126,7 +136,7 @@ const SnippetDetails = () => {
             }}>Copy</Button>
 
           </div>
-
+    
           <SyntaxHighlighter showLineNumbers={true} language={formData.language} style={darcula} >
             {formData.code}
           </SyntaxHighlighter>
@@ -138,11 +148,14 @@ const SnippetDetails = () => {
             pathname: '/snippet'
           });
           }}>Done editing</Button>
+         
         </>
       }
 
 
     </Container>
+
+      }</>
   );
 }
 export default withHeaderAndFooter(SnippetDetails)

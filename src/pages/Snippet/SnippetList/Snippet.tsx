@@ -1,4 +1,4 @@
-import { Button, Container, Table, InputGroup, Form, Dropdown, DropdownButton } from "react-bootstrap"
+import { Button, Container, Table, InputGroup, Form, Dropdown, DropdownButton, Spinner } from "react-bootstrap"
 import withHeaderAndFooter from "../../../hoc/withHeaderAndFooter"
 import { AiOutlineDelete, AiOutlineEdit, AiOutlineSearch, AiOutlineCopy } from "react-icons/ai";
 import { MdOutlineClear } from "react-icons/md"
@@ -26,6 +26,7 @@ const Snippet = () => {
   const [totalPages, setTotalPages] = useState(Math.ceil(DATA.length / itemsPerPage))
   const [data, setData] = useState<DataType[]>()
   const [search, setSearch] = useState('')
+  const [loading, setLoading] = useState(false)
 
 
   useEffect(() => {
@@ -34,6 +35,7 @@ const Snippet = () => {
   }, [filter, currentPage, search])
 
   const handleFilter = () =>{
+    setLoading(true)
     let filteredData: DataType[]  = []
     if (filter || search) {
       filteredData = DATA.filter(item => (filter ? item.language === filter : true) && ( search ? item.title.toLowerCase().includes(search.toLowerCase()  ) : true
@@ -46,6 +48,7 @@ const Snippet = () => {
       currentPage * itemsPerPage
     )))
     data && setTotalPages(Math.ceil(filteredData.length / itemsPerPage))
+     setLoading(false)
   }
 
   const handleEdit = (item: number) => {
@@ -100,7 +103,8 @@ const Snippet = () => {
 
   return (
     <Container fluid className={"p-2 container mt-5 text-center"} style={{ backgroundColor: '#f8f9fa' }}>
-
+      {loading  ? <Spinner animation="grow" variant="dark" /> : 
+      <> 
       <div className="d-flex justify-content-between align-items-center">
         <InputGroup className="m-3">
 
@@ -138,6 +142,7 @@ const Snippet = () => {
           Add
         </Button>
       </div>
+      
 
      {data && data?.length >=  1 ?  
       <Table bordered responsive className={"text-center " + styles.table_hover}>
@@ -175,6 +180,7 @@ const Snippet = () => {
       </Table> : <NothingFound /> }
 
      {(data && data?.length >=  1) &&  <PaginationComponent pageData={data} currentPage={currentPage} totalPages={totalPages} setCurrentPage={setCurrentPage} />}
+     </>  }
     </Container >
   )
 }
