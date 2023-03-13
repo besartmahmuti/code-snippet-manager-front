@@ -7,28 +7,34 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { updateAlertContent } from '../../../lib/store/slices/alert';
 import { SnippetFormData } from '../../../lib/types';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { DATA } from '../../../lib/constants';
 import { copyToClipboard } from '../../../utils/copyToClipboard';
 
 const SnippetDetails = () => {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { id } = useParams();
+  const [saving, setSaving] = useState(true)
+  const { id , isSaving } = useParams();
   const [formData, setFormData] = useState<SnippetFormData>({
     title: '',
     language: '',
     code: ''
   });
 
+
   useEffect(() => {
     if (id) {
       const item = DATA.find((data) => data.id === +id);
      item && setFormData({ ...formData, title: item.title, language : item.language, code: item.code})
+     
+     setSaving((isSaving === 'true' ? true : false))
+   
     }// eslint-disable-next-line
   }, [])
   
  
-  const [saving, setSaving] = useState(true)
+
   const languages = ['plaintext', 'javascript', 'java', 'node-repl', 'c', 'php', 'python']
 
 
@@ -125,8 +131,13 @@ const SnippetDetails = () => {
             {formData.code}
           </SyntaxHighlighter>
           <Button variant="primary" onClick={() => {
-            handleSaving();
-          }}>Keep editing</Button>
+           setSaving(true)
+          }}>Keep editing</Button> {' '}
+                  <Button variant="primary" onClick={() => {
+          navigate({
+            pathname: '/snippet'
+          });
+          }}>Done editing</Button>
         </>
       }
 

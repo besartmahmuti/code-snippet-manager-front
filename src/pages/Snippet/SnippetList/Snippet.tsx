@@ -48,7 +48,10 @@ const Snippet = () => {
   }
 
   const handleEdit = (item: number) => {
-    navigate(`/snippetDetails/${item}`);
+    navigate(`/snippetDetails/${item}/${true}`);
+  }
+  const rowClicked = (item: number) =>{
+    navigate(`/snippetDetails/${item}/${false}`)
   }
 
   const handleDelete = (item: string) => {
@@ -135,7 +138,7 @@ const Snippet = () => {
         </Button>
       </div>
 
-
+     {data && data?.length >  1 ?  
       <Table bordered responsive className={"text-center " + styles.table_hover}>
 
         <thead>
@@ -147,10 +150,10 @@ const Snippet = () => {
         </thead>
         <tbody>
           {data?.map((item, index) => (
-            <tr key={item.id}>
+            <tr key={item.id} >
 
-              <td >{item.title}</td>
-              <td>{item.language}</td>
+              <td onClick={()=>{ rowClicked(item.id) }} >{item.title}</td>
+              <td onClick={()=>{ rowClicked(item.id)}}>{item.language}</td>
 
               <td style={{ width: '200px' }}>
                 <Button variant="warning" onClick={() => handleEdit(item.id)}>
@@ -168,7 +171,7 @@ const Snippet = () => {
           ))}
         </tbody>
 
-      </Table>
+      </Table> :  <h1> no data found </h1>  }
 
       <PaginationComponent pageData={data} currentPage={currentPage} totalPages={totalPages} setCurrentPage={setCurrentPage} />
     </Container >
