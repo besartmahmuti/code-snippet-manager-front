@@ -13,6 +13,7 @@ import styles from './Snippet.module.scss'
 import { updateAlertContent } from "../../../lib/store/slices/alert";
 import { copyToClipboard } from "../../../utils/copyToClipboard";
 import { DataType } from "../../../lib/types";
+import NothingFound from "../../../components/NothingFound";
 
 
 
@@ -138,7 +139,7 @@ const Snippet = () => {
         </Button>
       </div>
 
-     {data && data?.length >  1 ?  
+     {data && data?.length >=  1 ?  
       <Table bordered responsive className={"text-center " + styles.table_hover}>
 
         <thead>
@@ -171,9 +172,9 @@ const Snippet = () => {
           ))}
         </tbody>
 
-      </Table> :  <h1> no data found </h1>  }
+      </Table> : <NothingFound /> }
 
-      <PaginationComponent pageData={data} currentPage={currentPage} totalPages={totalPages} setCurrentPage={setCurrentPage} />
+     {(data && data?.length >=  1) &&  <PaginationComponent pageData={data} currentPage={currentPage} totalPages={totalPages} setCurrentPage={setCurrentPage} />}
     </Container >
   )
 }
